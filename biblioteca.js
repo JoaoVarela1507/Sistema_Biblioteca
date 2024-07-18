@@ -111,7 +111,8 @@ function menuprincipal(nomeUsuario) {
     console.log("1. Meus Livros");
     console.log("2. Livros Disponíveis");
     console.log("3. Livros Alugados");
-    console.log("4. Sair");
+    console.log("4. Devolver Livros");
+    console.log("5. Sair");
 
     let escolha = prompt("Escolha uma opção: ");
 
@@ -128,13 +129,53 @@ function menuprincipal(nomeUsuario) {
             console.log("Livros Alugados - Em breve!");
             menuprincipal(nomeUsuario);
             break;
+
         case "4":
+            devolverLivros(nomeUsuario);
+
+        case "5":
             console.log("Até logo!");
             return;
         default:
             console.log("Opção inválida. Por favor, escolha 1, 2, 3 ou 4.");
             menuprincipal(nomeUsuario);
     }
+}
+
+function devolverLivros(nomeUsuario){
+    const nomeArquivo = `meuslivros_${nomeUsuario}.txt`;
+
+    try {
+        const data = fs.readFileSync(nomeArquivo, 'utf8');
+
+        const linhas = data.split('\n');
+
+        if (linhas.length > 0) {
+            console.log(`Livros de ${nomeUsuario}:`);
+            linhas.forEach((linha, index) => {
+                console.log(`${index + 1}. ${linha}`);
+            });
+
+            let escolha = prompt("Escolha um número para devolver à biblioteca (ou '0' para voltar): ");
+            escolha = parseInt(escolha);
+
+
+            if (escolha > 0 && escolha <= linhas.length) {
+                
+                removerLivroDisponivel(linhas[escolha - 1], nomeArquivo);
+                adicionarLivroDisponivel(linhas[escolha - 1])
+                console.log("\nLivro devolvido com sucesso!! \n\n");
+            } else if (escolha !== 0) {
+                console.log("Opção inválida.");
+            }
+
+        } else {
+            console.log(`Nenhum livro encontrado para ${nomeUsuario}.`);
+        }
+    } catch (err) {
+        console.error(`Erro ao ler os livros de ${nomeUsuario}:`, err);
+    }
+    menuprincipal(nomeUsuario);
 }
 
 function mostrarLivrosDisponiveis(nomeUsuario) {
@@ -180,6 +221,11 @@ function mostrarLivrosDisponiveis(nomeUsuario) {
 function adicionarLivroUsuario(nomeUsuario, livro) {
     const nomeArquivo = `meuslivros_${nomeUsuario}.txt`;
     fs.appendFileSync(nomeArquivo, livro + "\n");
+}
+
+function adicionarLivroDisponivel(livro) {
+    const nomeArquivo = './livrosdisponiveis.txt';
+    fs.appendFileSync(nomeArquivo, "\n" + livro + "\n");
 }
 
 function removerLivroDisponivel(livro, nomeArquivo) {

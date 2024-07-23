@@ -86,7 +86,7 @@ function menuinicial() {
             break;
         case "3":
             console.log("Até logo!");
-            return;
+            process.exit(0);
         default:
             console.log("Opção inválida. Por favor, escolha 1, 2 ou 3.");
     }
@@ -110,7 +110,7 @@ function menuadmin() {
             break;
         case "3":
             console.log("Até logo!");
-            return;
+            process.exit(0);
         default:
             console.log("Opção inválida. Por favor, escolha 1, 2 ou 3.");
             menuadmin();
@@ -121,7 +121,9 @@ function menuprincipal(nomeUsuario) {
     console.log("1. Meus Livros");
     console.log("2. Livros Disponíveis");
     console.log("3. Livros Alugados");
-    console.log("4. Devolver Livros"); // Nova opção adicionada
+    console.log("4. Devolver Livros");
+    console.log("5. Voltar para o menu de login");
+    console.log("6. Sair");  
 
     let escolha = prompt("Escolha uma opção: ");
 
@@ -137,11 +139,13 @@ function menuprincipal(nomeUsuario) {
             mostrarLivrosAlugados(nomeUsuario);
             break;
         case "4":
-            devolverLivros(nomeUsuario); // Chamada para a função devolverLivros
+            devolverLivros(nomeUsuario);
             break;
         case "5":
+            menuinicial();
+        case "6":
             console.log("Até logo!");
-            return;
+            process.exit(0);;
         default:
             console.log("Opção inválida. Por favor, escolha 1, 2, 3, 4 ou 5.");
             menuprincipal(nomeUsuario);
@@ -363,12 +367,10 @@ function adicionarLivroDisponivel(livro) {
     try {
         if (fs.existsSync(nomeArquivo)) {
             const data = fs.readFileSync(nomeArquivo, 'utf8');
-            const linhas = data.split('\n').filter(Boolean); // Remove linhas em branco
+            const linhas = data.split('\n').filter(Boolean); 
 
-            // Adiciona o livro no final do arquivo
             fs.appendFileSync(nomeArquivo, livro + "\n");
         } else {
-            // Se o arquivo não existir, cria ele com o livro
             fs.writeFileSync(nomeArquivo, livro + "\n");
         }
     } catch (err) {

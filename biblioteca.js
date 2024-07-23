@@ -21,8 +21,20 @@ function salvarUsuario(nomeUsuario, senha) {
 
 function registrar() {
     console.log("-REGISTER-");
-    let nomeUsuario = prompt("Digite um nome de usuário: ");
-    let senha = prompt("Digite uma senha: ");
+    let nomeUsuario = prompt("Digite um nome de usuário (até 8 caracteres): ");
+    let senha = prompt("Digite uma senha (4 números): ");
+    
+    if (nomeUsuario.length > 8) {
+        console.log("Nome de usuário deve ter no máximo 8 caracteres. Tente novamente.");
+        registrar();
+        return;
+    }
+
+    if (!senha.match(/^\d{4}$/)) {
+        console.log("Senha deve conter exatamente 4 números. Tente novamente.");
+        registrar();
+        return;
+    }
 
     let usuarioExiste = usuarios.some(usuario => usuario.nomeUsuario === nomeUsuario);
     let senhaExiste = usuarios.some(usuario => usuario.senha === senha);
@@ -32,7 +44,6 @@ function registrar() {
         registrar();
     } else {
         usuarios.push({ nomeUsuario, senha });
-        salvarUsuario(nomeUsuario, senha);
         console.log("Registro bem-sucedido!");
         logar();
     }

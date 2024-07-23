@@ -45,9 +45,11 @@ function registrar() {
     } else {
         usuarios.push({ nomeUsuario, senha });
         console.log("Registro bem-sucedido!");
+        salvarUsuario(nomeUsuario, senha);
         logar();
     }
 }
+
 
 function logar() {
     console.log("-LOGIN-");

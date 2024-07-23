@@ -46,12 +46,12 @@ function registrar() {
         usuarios.push({ nomeUsuario, senha });
         console.log("Registro bem-sucedido!");
         salvarUsuario(nomeUsuario, senha);
-        logar();
+        logar(0);
     }
 }
 
 
-function logar() {
+function logar(tentativas) {
     texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
     ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
     ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
@@ -72,7 +72,7 @@ function logar() {
         menuadmin();
     } else {
         console.log("Nome de usuário ou senha inválidos. Por favor, tente novamente.");
-        logar();
+        verificarEscolha(tentativas);
     }
 }
 
@@ -94,7 +94,7 @@ function menuinicial() {
             registrar();
             break;
         case "2":
-            logar();
+            logar(0);
             break;
         case "3":
             console.log("Até logo!");
@@ -448,6 +448,23 @@ function removerLivroUsuario(nomeArquivo, indice) {
         fs.writeFileSync(nomeArquivo, data, 'utf8');
     } catch (err) {
         console.error('Erro ao remover o livro da lista do usuário:', err);
+    }
+}
+
+function verificarEscolha(tentativas){
+    tentativas += 1
+    if (tentativas >= 3){
+        let voltar = prompt("Deseja voltar para o menu inicial?(S/N) ")
+        if (voltar === 's'){
+            menuinicial()
+        } else if (voltar === 'n') {
+            logar(tentativas)
+        } else {
+            console.log("Escolha uma opção válida")
+            verificarEscolha(tentativas)
+        }
+    } else {
+        logar(tentativas)
     }
 }
 

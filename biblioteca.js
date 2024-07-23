@@ -52,6 +52,12 @@ function registrar() {
 
 
 function logar() {
+    texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
+    ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
+    ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
+    \n
+    `         
+    console.log(texto);
     console.log("-LOGIN-");
     let nomeUsuario = prompt("Digite seu nome de usuário: ");
     let senha = prompt("Digite sua senha: ");
@@ -71,6 +77,12 @@ function logar() {
 }
 
 function menuinicial() {
+    texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
+    ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
+    ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
+    \n
+    `         
+    console.log(texto);
     console.log("1. Registrar");
     console.log("2. Logar");
     console.log("3. Sair");
@@ -95,6 +107,12 @@ function menuinicial() {
 }
 
 function menuadmin() {
+    texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
+    ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
+    ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
+    \n
+    `         
+    console.log(texto);
     console.log("1. Adicionar Livros");
     console.log("2. Retirar Livros");
     console.log("3. Sair");
@@ -118,6 +136,12 @@ function menuadmin() {
 }
 
 function menuprincipal(nomeUsuario) {
+    texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
+    ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
+    ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
+    \n
+    `         
+    console.log(texto);
     console.log("1. Meus Livros");
     console.log("2. Livros Disponíveis");
     console.log("3. Livros Alugados");
@@ -153,6 +177,12 @@ function menuprincipal(nomeUsuario) {
 }
 
 function mostrarLivrosDisponiveis(nomeUsuario) {
+    texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
+    ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
+    ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
+    \n
+    `         
+    console.log(texto);
     const nomeArquivo = './livrosdisponiveis.txt';
 
     try {
@@ -179,6 +209,7 @@ function mostrarLivrosDisponiveis(nomeUsuario) {
                 adicionarLivroUsuario(nomeUsuario, linhas[escolha - 1]);
                 removerLivroDisponivel(linhas[escolha - 1], nomeArquivo);
                 console.log("\nParabéns, ótima escolha, livro adicionado à sua lista pessoal com sucesso!!\n");
+
             } else if (escolha !== 0) {
                 console.log("Opção inválida.");
             }
@@ -210,6 +241,12 @@ function removerLivroDisponivel(livro, nomeArquivo) {
 }
 
 function mostrarMeusLivros(nomeUsuario) {
+    texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
+    ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
+    ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
+    \n
+    `         
+    console.log(texto);
     const nomeArquivo = `meuslivros_${nomeUsuario}.txt`;
 
     if (fs.existsSync(nomeArquivo)) {
@@ -236,6 +273,12 @@ function mostrarMeusLivros(nomeUsuario) {
 }
 
 function removerLivros() {
+    texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
+    ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
+    ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
+    \n
+    `         
+    console.log(texto);
     const arquivoTxt = './livrosdisponiveis.txt';
 
     try {
@@ -276,6 +319,12 @@ function removerLivros() {
 }
 
 function addLivrosAdm() {
+    texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
+    ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
+    ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
+    \n
+    `         
+    console.log(texto);
     const nomeArquivo = './livrosdisponiveis.txt';
     const nomeLivro = prompt('Digite o nome do livro que deseja adicionar: ');
     const autorLivro = prompt('Digite o autor do livro: ');
@@ -304,6 +353,12 @@ function addLivrosAdm() {
 }
 
 function mostrarLivrosAlugados(nomeUsuario){
+    texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
+    ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
+    ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
+    \n
+    `         
+    console.log(texto);
     let contador = 0;
     console.log(`Os livros que já estão alugados são:\n`);
     const nomes = fs.readFileSync("usuarios.txt", "utf-8").split("\n").filter(Boolean);
@@ -331,6 +386,12 @@ function mostrarLivrosAlugados(nomeUsuario){
 }
 
 function devolverLivros(nomeUsuario) {
+    texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
+    ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
+    ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
+    \n
+    `         
+    console.log(texto);
     console.log(`Bem-vindo ${nomeUsuario}!`);
     const nomeArquivo = `meuslivros_${nomeUsuario}.txt`;
     try {

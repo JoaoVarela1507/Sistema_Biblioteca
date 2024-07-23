@@ -119,7 +119,7 @@ function menuprincipal(nomeUsuario) {
     console.log("1. Meus Livros");
     console.log("2. Livros Disponíveis");
     console.log("3. Livros Alugados");
-    console.log("4. Sair");
+    console.log("4. Devolver Livros"); // Nova opção adicionada
 
     let escolha = prompt("Escolha uma opção: ");
 
@@ -132,13 +132,16 @@ function menuprincipal(nomeUsuario) {
             mostrarLivrosDisponiveis(nomeUsuario);
             break;
         case "3":
-            mostrarLivrosAlugados(nomeUsuario)
+            mostrarLivrosAlugados(nomeUsuario);
             break;
         case "4":
+            devolverLivros(nomeUsuario); // Chamada para a função devolverLivros
+            break;
+        case "5":
             console.log("Até logo!");
             return;
         default:
-            console.log("Opção inválida. Por favor, escolha 1, 2, 3 ou 4.");
+            console.log("Opção inválida. Por favor, escolha 1, 2, 3, 4 ou 5.");
             menuprincipal(nomeUsuario);
     }
 }
@@ -169,7 +172,7 @@ function mostrarLivrosDisponiveis(nomeUsuario) {
             if (escolha > 0 && escolha <= linhas.length) {
                 adicionarLivroUsuario(nomeUsuario, linhas[escolha - 1]);
                 removerLivroDisponivel(linhas[escolha - 1], nomeArquivo);
-                console.log("\nParabens, ótima escolha, livro adicionado à sua lista pessoal com sucesso!! \n\nATENÇÃO : você tem até uma semana para devolver, caso passe do prazo será cobrado uma taxa de R$ 7,00(Você poderá renovar até 3 vezes o mesmo livro) !! \n\nCaso não renove ou devolva o livro em uma semana será cobrado um taxa para cada dia de atraso de R$ 2,00, caso passe 1 mês e não haver alguma tentativa de devolução você NÃO poderá alugar livros por 9 meses!!\n");
+                console.log("\nParabéns, ótima escolha, livro adicionado à sua lista pessoal com sucesso!!\n");
             } else if (escolha !== 0) {
                 console.log("Opção inválida.");
             }
@@ -203,7 +206,7 @@ function removerLivroDisponivel(livro, nomeArquivo) {
 function mostrarMeusLivros(nomeUsuario) {
     const nomeArquivo = `meuslivros_${nomeUsuario}.txt`;
 
-    if (fs.existsSync(nomeArquivo)){
+    if (fs.existsSync(nomeArquivo)) {
         try {
             const data = fs.readFileSync(nomeArquivo, 'utf8');
 
@@ -221,7 +224,7 @@ function mostrarMeusLivros(nomeUsuario) {
             console.error(`Erro ao ler os livros de ${nomeUsuario}:`, err);
         }
     } else {
-        console.log("Esse usuário não tem uma pasta de livros. ")
+        console.log("Esse usuário não tem uma lista de livros.");
     }
     menuprincipal(nomeUsuario);
 }
@@ -272,7 +275,7 @@ function addLivrosAdm() {
     const autorLivro = prompt('Digite o autor do livro: ');
     const faixaEtaria = prompt('Digite a faixa etária recomendada (em anos): ');
 
-    const livroFormatado = `"${nomeLivro}","${autorLivro}",${faixaEtaria}\n`; // Adicionando \n para que cada livro seja em uma nova linha
+    const livroFormatado = `"${nomeLivro}","${autorLivro}",${faixaEtaria}\n`;
 
     let livrosDisponiveis = [];
     if (fs.existsSync(nomeArquivo)) {
@@ -293,33 +296,94 @@ function addLivrosAdm() {
 
     menuadmin();
 }
+
 function mostrarLivrosAlugados(nomeUsuario){
-    let contador = 0
+    let contador = 0;
     console.log(`Os livros que já estão alugados são:\n`);
     const nomes = fs.readFileSync("usuarios.txt", "utf-8").split("\n").filter(Boolean);
 
-    
-        for (i = 0; i < usuarios.length; i ++){
-            try{    
-                let user = nomes[i]
-                let nomeArquivo = `meuslivros_${user}.txt`;
-                if (fs.existsSync(nomeArquivo)){
-                    if (fs.readFileSync(`meuslivros_${user}.txt`, "utf-8").split("\n").filter(Boolean) != ""){
-                        contador += 1
-                        const dataUsuarios = fs.readFileSync(nomeArquivo, 'utf8');
-                        console.log(`- ${user} -\n `+ dataUsuarios +`------`)
-                    }
-                    
+    for (let i = 0; i < usuarios.length; i++) {
+        try {    
+            let user = nomes[i];
+            let nomeArquivo = `meuslivros_${user}.txt`;
+            if (fs.existsSync(nomeArquivo)){
+                if (fs.readFileSync(`meuslivros_${user}.txt`, "utf-8").split("\n").filter(Boolean) != ""){
+                    contador += 1;
+                    const dataUsuarios = fs.readFileSync(nomeArquivo, 'utf8');
+                    console.log(`- ${user} -\n `+ dataUsuarios +`------`);
                 }
-            } catch (err) {
-                console.error(`Erro ao ler os livros alugados de ${user}:, err`);
             }
+        } catch (err) {
+            console.error(`Erro ao ler os livros alugados de ${user}:`, err);
         }
-        if (contador == 0){
-            console.log("Não existem livros alugados no momento.\n")
+    }
+    if (contador === 0){
+        console.log("Não existem livros alugados no momento.\n");
+    }
+
+    menuprincipal(nomeUsuario);
+}
+
+function devolverLivros(nomeUsuario) {
+    console.log(`Bem-vindo ${nomeUsuario}!`);
+    const nomeArquivo = `meuslivros_${nomeUsuario}.txt`;
+    try {
+        const data = fs.readFileSync(nomeArquivo, 'utf8');
+        const linhas = data.split('\n');
+        
+        if (linhas.length > 0) {
+            console.log(`Livros de ${nomeUsuario}:`);
+            linhas.forEach((linha, index) => {
+                console.log(`${index + 1}. ${linha}`);
+            });
+            
+            let escolha = prompt("Escolha um número para devolver à biblioteca (ou '0' para voltar): ");
+            escolha = parseInt(escolha);
+            
+            if (escolha > 0 && escolha <= linhas.length) {
+                adicionarLivroDisponivel(linhas[escolha - 1]);
+                console.log("\nLivro devolvido com sucesso!!\n\n");
+                removerLivroUsuario(nomeArquivo, escolha - 1);
+            } else if (escolha !== 0) {
+                console.log("Opção inválida.");
+            }
+        } else {
+            console.log(`Nenhum livro encontrado para ${nomeUsuario}.`);
         }
-    
-    menuprincipal(nomeUsuario)
+    } catch (err) {
+        console.error(`Erro ao ler os livros de ${nomeUsuario}:`, err);
+    }
+    menuprincipal(nomeUsuario);
+}
+
+function adicionarLivroDisponivel(livro) {
+    const nomeArquivo = './livrosdisponiveis.txt';
+    try {
+        if (fs.existsSync(nomeArquivo)) {
+            const data = fs.readFileSync(nomeArquivo, 'utf8');
+            const linhas = data.split('\n').filter(Boolean); // Remove linhas em branco
+
+            // Adiciona o livro no final do arquivo
+            fs.appendFileSync(nomeArquivo, livro + "\n");
+        } else {
+            // Se o arquivo não existir, cria ele com o livro
+            fs.writeFileSync(nomeArquivo, livro + "\n");
+        }
+    } catch (err) {
+        console.error('Erro ao adicionar o livro aos disponíveis:', err);
+    }
+}
+
+function removerLivroUsuario(nomeArquivo, indice) {
+    try {
+        let data = fs.readFileSync(nomeArquivo, 'utf8');
+        let linhas = data.split('\n');
+        linhas.splice(indice, 1);
+        data = linhas.join('\n');
+        fs.writeFileSync(nomeArquivo, data, 'utf8');
+    } catch (err) {
+        console.error('Erro ao remover o livro da lista do usuário:', err);
+    }
 }
 
 carregarUsuarios();

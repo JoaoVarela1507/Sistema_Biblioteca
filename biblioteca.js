@@ -120,6 +120,7 @@ function menuadmin() {
     console.log("1. Adicionar Livros");
     console.log("2. Retirar Livros");
     console.log("3. Sair");
+    console.log("4. Dados dos Clientes");
 
     let escolha = prompt("Escolha uma opção: ");
 
@@ -133,6 +134,8 @@ function menuadmin() {
         case "3":
             console.log("Até logo!");
             process.exit(0);
+        case "4":
+            dadosCliente()
         default:
             console.log("Opção inválida. Por favor, escolha 1, 2 ou 3.");
             menuadmin();
@@ -558,6 +561,30 @@ function verificarEscolha(tentativas){
     } else {
         logar(tentativas)
     }
+}
+
+function dadosCliente() {
+    const texto = `\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
+    ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
+    ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
+    \n`;
+    console.log(texto);
+    
+    const senhasPath = './senhas.txt';
+    const userPath = './usuarios.txt';
+
+    try {
+        const senhas = fs.readFileSync(senhasPath, 'utf8');
+        const user = fs.readFileSync(userPath, 'utf8');
+
+        console.log("Segue abaixo os Cliente e suas senhas: \n");
+        console.log(`Clientes: \n${user}`);
+        console.log(`Senhas: \n${senhas}\n`);
+    } catch (err) {
+        console.error('Erro ao ler os arquivos:', err);
+    }
+
+    menuadmin()
 }
 
 carregarUsuarios();

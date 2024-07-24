@@ -590,6 +590,5 @@ function dadosCliente() {
 carregarUsuarios();
 menuinicial();
 
-
-
+//
 // COLOCAR O CONSOLE.CLEAR() EM TODAS AS FUNÇÕES

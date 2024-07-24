@@ -140,6 +140,8 @@ function menuadmin() {
 }
 
 function menuprincipal(nomeUsuario) {
+
+    console.clear();
     texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
     ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
     ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
@@ -153,7 +155,7 @@ function menuprincipal(nomeUsuario) {
     console.log("5. Voltar para o menu de login");
     console.log("6. Sair");  
 
-    let escolha = prompt("Escolha uma opção: ");
+    let escolha = prompt("\nEscolha uma opção: \n");
 
     switch (escolha) {
         case "1":
@@ -223,8 +225,10 @@ function mostrarLivrosDisponiveis(nomeUsuario) {
                     adicionarLivroUsuario(nomeUsuario, linhas[escolha - 1]);
                     removerLivroDisponivel(linhas[escolha - 1], nomeArquivo);
                     console.log("\nParabéns, ótima escolha, livro adicionado à sua lista pessoal com sucesso!!\n");
+                    // implementar o texto de aviso
+    
 
-                    let proximaAcao = prompt("Deseja sair da aplicação ou selecionar outro livro? (1 para outro / 2 para menu principal / 3 para sair): ");
+                    let proximaAcao = prompt("\nDeseja sair da aplicação, selecionar outro livro ou voltar para o menu principal? (1 para outro / 2 para menu principal / 3 para sair): \n");
                     proximaAcao = parseInt(proximaAcao);
 
                     if (proximaAcao === 1) {
@@ -234,10 +238,10 @@ function mostrarLivrosDisponiveis(nomeUsuario) {
                         menuprincipal(nomeUsuario);
                         return;
                     } else if (proximaAcao === 3) {
-                        console.log("Obrigado por usar a aplicação! Até a próxima.");
+                        console.log("\nObrigado por usar a aplicação! Até a próxima.\n");
                         process.exit(0);
                     } else {
-                        console.log("Opção inválida, retornando ao menu principal.");
+                        console.log("\nOpção inválida, retornando ao menu principal.\n");
                         menuprincipal(nomeUsuario);
                     }
                 } else if (confirmacao === 2) {
@@ -464,8 +468,11 @@ function mostrarLivrosAlugados(nomeUsuario){
     if (contador === 0){
         console.log("Não existem livros alugados no momento.\n");
     }
+//função de chamar 2 caminhos, Brenna e Ana
+
 
     menuprincipal(nomeUsuario);
+ 
 }
 
 function devolverLivros(nomeUsuario) {
@@ -504,6 +511,8 @@ function devolverLivros(nomeUsuario) {
         console.error(`Erro ao ler os livros de ${nomeUsuario}:`, err);
     }
     menuprincipal(nomeUsuario);
+//função de chamar 3 caminhos, mylenna e Bia
+
 }
 
 function adicionarLivroDisponivel(livro) {
@@ -537,10 +546,10 @@ function removerLivroUsuario(nomeArquivo, indice) {
 function verificarEscolha(tentativas){
     tentativas += 1
     if (tentativas >= 3){
-        let voltar = prompt("Deseja voltar para o menu inicial?(S/N) ")
-        if (voltar === 's'){
+        let voltar = prompt("Deseja voltar para o menu inicial?(SIM = 1/NÃO = 2) ")
+        if (voltar === '1'){
             menuinicial()
-        } else if (voltar === 'n') {
+        } else if (voltar === '2') {
             logar(tentativas)
         } else {
             console.log("Escolha uma opção válida")
@@ -553,3 +562,7 @@ function verificarEscolha(tentativas){
 
 carregarUsuarios();
 menuinicial();
+
+
+
+// COLOCAR O CONSOLE.CLEAR() EM TODAS AS FUNÇÕES

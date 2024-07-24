@@ -135,7 +135,7 @@ function menuadmin() {
             console.log("Até logo!");
             process.exit(0);
         case "4":
-            dadosCliente()
+            dadosCliente();
         default:
             console.log("Opção inválida. Por favor, escolha 1, 2 ou 3.");
             menuadmin();
@@ -163,7 +163,6 @@ function menuprincipal(nomeUsuario) {
     switch (escolha) {
         case "1":
             mostrarMeusLivros(nomeUsuario);
-            menuprincipal(nomeUsuario);
             break;
         case "2":
             mostrarLivrosDisponiveis(nomeUsuario);
@@ -180,7 +179,7 @@ function menuprincipal(nomeUsuario) {
             console.log("Até logo!");
             process.exit(0);
         default:
-            console.log("Opção inválida. Por favor, escolha 1, 2, 3, 4 ou 5.");
+            console.log("Opção inválida. Por favor, escolha 1, 2, 3, 4, 5 ou 6.");
             menuprincipal(nomeUsuario);
     }
 }
@@ -212,7 +211,7 @@ function mostrarLivrosDisponiveis(nomeUsuario) {
                 }
             });
 
-            let escolha = prompt("Escolha um número para adicionar à sua lista (ou '0' para voltar): ");
+            let escolha = prompt("Escolha um livro para adicionar à sua lista (ou '0' para voltar): ");
             escolha = parseInt(escolha);
 
             if (escolha > 0 && escolha <= linhas.length) {
@@ -577,8 +576,8 @@ function dadosCliente() {
         const senhas = fs.readFileSync(senhasPath, 'utf8');
         const user = fs.readFileSync(userPath, 'utf8');
 
-        console.log("Segue abaixo os Cliente e suas senhas: \n");
-        console.log(`Clientes: \n${user}`);
+        console.log("Segue abaixo os Clientes e suas senhas: \n");
+        console.log(`Clientes: \n${user}\n`);
         console.log(`Senhas: \n${senhas}\n`);
     } catch (err) {
         console.error('Erro ao ler os arquivos:', err);

@@ -1,2 +1,3 @@
 "Memórias Póstumas de Brás Cubas","Machado de Assis",18
 "Jogos Vorazes","Suzanne Collins",14
+"A Hora da Estrela","Clarice Lispector",14 

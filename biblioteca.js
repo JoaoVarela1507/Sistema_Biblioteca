@@ -121,6 +121,7 @@ function menuadmin() {
     console.log("2. Retirar Livros");
     console.log("3. Sair");
     console.log("4. Dados dos Clientes");
+    console.log("5. Livros disponiveis");
 
     let escolha = prompt("Escolha uma opção: ");
 
@@ -136,6 +137,8 @@ function menuadmin() {
             process.exit(0);
         case "4":
             dadosCliente()
+        case "5":
+            livrosDisponiveis()
         default:
             console.log("Opção inválida. Por favor, escolha 1, 2 ou 3.");
             menuadmin();
@@ -573,6 +576,27 @@ function dadosCliente() {
         console.log(`Senhas: \n${senhas}\n`);
     } catch (err) {
         console.error('Erro ao ler os arquivos:', err);
+    }
+
+    menuadmin()
+}
+
+function livrosDisponiveis(){
+    const texto = `\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
+    ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
+    ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
+    \n`;
+    console.log(texto);
+
+    const livrosDisponivelPath = './livrosdisponiveis.txt';
+
+    try {
+        livrosDisponivel = fs.readFileSync(livrosDisponivelPath, 'utf-8');
+
+        console.log("Segue abaixo a lista de livros: \n")
+        console.log(livrosDisponivel)
+    } catch (err) {
+        console.log('Erro ao ler os arquivos:', err);
     }
 
     menuadmin()

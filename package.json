@@ -1,6 +1,18 @@
 {
   "dependencies": {
+    "chalk": "^5.3.0",
     "node.js": "^0.0.1-security",
     "prompt-sync": "^4.2.0"
-  }
+  },
+  "name": "sistema_biblioteca",
+  "version": "1.0.0",
+  "description": "## Início 1. Abra o terminal",
+  "main": "biblioteca.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

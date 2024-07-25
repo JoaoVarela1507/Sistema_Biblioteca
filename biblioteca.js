@@ -120,7 +120,8 @@ function menuadmin() {
     console.log("1. Adicionar Livros");
     console.log("2. Retirar Livros");
     console.log("3. Dados dos Clientes");
-    console.log("4. Sair");
+    console.log("4. Listas de Livros");
+    console.log("5. Sair")
 
     let escolha = prompt("Escolha uma opção: ");
 
@@ -131,11 +132,13 @@ function menuadmin() {
         case "2":
             removerLivros();
             break;
+        case "3":
+           dadosCliente()
         case "4":
+            livrosAdm()
+        case "5":
             console.log("Até logo!");
             process.exit(0);
-        case "3":
-            dadosCliente();
         default:
             console.log("Opção inválida. Por favor, escolha 1, 2, 3 ou 4.");
             menuadmin();
@@ -344,6 +347,7 @@ function mostrarMeusLivros(nomeUsuario) {
 }
 
 function removerLivros() {
+    console.clear(0);
     const texto =`\n
     
     ░█▀▀█ ▒█▀▀▄ ▒█▀▄▀█ ▀█▀ ▒█▄░▒█ 　 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 
@@ -405,6 +409,7 @@ function removerLivros() {
 }
 
 function addLivrosAdm() {
+    console.clear(0);
     const texto =`\n
     
     ░█▀▀█ ▒█▀▀▄ ▒█▀▄▀█ ▀█▀ ▒█▄░▒█ 　 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 
@@ -599,6 +604,7 @@ function verificarEscolha(tentativas){
 }
 
 function dadosCliente() {
+    console.clear(0);
     const texto =`\n
     
     ░█▀▀█ ▒█▀▀▄ ▒█▀▄▀█ ▀█▀ ▒█▄░▒█ 　 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 
@@ -624,6 +630,33 @@ function dadosCliente() {
     }
 
     menuadmin()
+}
+
+function livrosAdm(){
+    console.clear(0);
+    const texto =`\n
+    
+    ░█▀▀█ ▒█▀▀▄ ▒█▀▄▀█ ▀█▀ ▒█▄░▒█ 　 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 
+    ▒█▄▄█ ▒█░▒█ ▒█▒█▒█ ▒█░ ▒█▒█▒█ 　 ▒█▀▀▄ ▒█▀▀▄ ░▒█░░ 
+    ▒█░▒█ ▒█▄▄▀ ▒█░░▒█ ▄█▄ ▒█░░▀█ 　 ▒█▄▄█ ▒█▄▄█ ▄▀▒▀▄ 
+
+    \n
+    `
+    console.log(texto);
+
+    const livrosPath = './livrosdisponiveis.txt'
+
+    try {
+        const livrosAdm = fs.readFileSync(livrosPath, 'utf8');
+        
+        console.log("\nSegue abaixo os a lista de todos os livros: \n");
+        console.log(`-->: \n${livrosAdm}\n`);
+    } catch (err) {
+        console.error('\nErro ao ler os arquivos:', err);
+    }
+
+    menuadmin()
+
 }
 
 carregarUsuarios();

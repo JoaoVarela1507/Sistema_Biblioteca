@@ -57,9 +57,15 @@ function logar(tentativas) {
     ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
     ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
     \n
-    `         
+    `        
+    
     console.log(texto);
     console.log("-LOGIN-");
+    
+    if (tentativas >= 1){
+        console.log("\nNome de usuário ou senha inválidos. Por favor, tente novamente.\n");
+    }
+
     let nomeUsuario = prompt("Digite seu nome de usuário: ");
     let senha = prompt("Digite sua senha: ");
 
@@ -72,7 +78,6 @@ function logar(tentativas) {
         console.log("Bem-vindo ADMIN!!");
         menuadmin();
     } else {
-        console.log("Nome de usuário ou senha inválidos. Por favor, tente novamente.");
         verificarEscolha(tentativas);
     }
 }
@@ -481,7 +486,7 @@ function mostrarLivrosAlugados(nomeUsuario){
         try {    
             let user = nomes[i];
             let nomeArquivo = `meuslivros_${user}.txt`;
-            if (fs.existsSync(nomeArquivo)){
+            if (fs.existsSync(nomeArquivo) && user != nomeUsuario){
                 if (fs.readFileSync(`meuslivros_${user}.txt`, "utf-8").split("\n").filter(Boolean) != ""){
                     contador += 1;
                     const dataUsuarios = fs.readFileSync(nomeArquivo, 'utf8');
@@ -493,7 +498,7 @@ function mostrarLivrosAlugados(nomeUsuario){
         }
     }
     if (contador === 0){
-        console.log("\nNão existem livros alugados no momento.\n");
+        console.log("\nNão existem livros alugados por outros usuários no momento.\n");
     }
 
     let proximaAcao = prompt("\nDeseja voltar para o menu principal ou sair? ( 1: para menu principal / 2: para sair): ");
@@ -511,6 +516,7 @@ function mostrarLivrosAlugados(nomeUsuario){
 }
 
 function devolverLivros(nomeUsuario) {
+    console.clear(0);
     
 
     texto =`\n
@@ -551,7 +557,7 @@ function devolverLivros(nomeUsuario) {
             console.log(`\nNenhum livro encontrado para ${nomeUsuario}.\n`);
         }
     } catch (err) {
-        console.error(`\nErro ao ler os livros de ${nomeUsuario}:`, err);
+        console.error(`Você não tem livros alugados para devolver.`);
     }
     menuprincipal(nomeUsuario);
 //função de chamar 3 caminhos, mylenna e Bia
@@ -593,7 +599,7 @@ function verificarEscolha(tentativas){
         if (voltar === '1'){
             menuinicial()
         } else if (voltar === '2') {
-            logar(tentativas)
+            logar(0)
         } else {
             console.log("Escolha uma opção válida")
             verificarEscolha(tentativas)

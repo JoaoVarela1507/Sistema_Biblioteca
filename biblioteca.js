@@ -119,8 +119,11 @@ function menuadmin() {
     console.log(texto);
     console.log("1. Adicionar Livros");
     console.log("2. Retirar Livros");
-    console.log("3. Sair");
+    console.log("3. Livros Disponíveis");
     console.log("4. Dados dos Clientes");
+    console.log("5. Adicionar usuario");
+    console.log("6. Remover usuario")
+    console.log("7. Sair")
 
     let escolha = prompt("Escolha uma opção: ");
 
@@ -132,12 +135,18 @@ function menuadmin() {
             removerLivros();
             break;
         case "3":
-            console.log("Até logo!");
-            process.exit(0);
+           livrosDisponiveis()
         case "4":
             dadosCliente();
+        case "5":
+            addUser()
+        case "6":
+            removeUser()
+        case "7":
+            console.log("Até logo!");
+            process.exit(0);
         default:
-            console.log("Opção inválida. Por favor, escolha 1, 2 ou 3.");
+            console.log("Opção inválida. Por favor, escolha 1, 2, 3, 4 ou 5.");
             menuadmin();
     }
 }
@@ -593,6 +602,86 @@ function dadosCliente() {
 
     menuadmin()
 }
+
+function livrosDisponiveis(){
+    const texto =`\n
+    
+    ░█▀▀█ ▒█▀▀▄ ▒█▀▄▀█ ▀█▀ ▒█▄░▒█ 　 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 
+    ▒█▄▄█ ▒█░▒█ ▒█▒█▒█ ▒█░ ▒█▒█▒█ 　 ▒█▀▀▄ ▒█▀▀▄ ░▒█░░ 
+    ▒█░▒█ ▒█▄▄▀ ▒█░░▒█ ▄█▄ ▒█░░▀█ 　 ▒█▄▄█ ▒█▄▄█ ▄▀▒▀▄ 
+
+    \n
+    `         
+    console.log(texto);
+    const livrosDisponivelPath = './livrosdisponiveis.txt';
+
+    try {
+       const livrosDisponivel = fs.readFileSync(livrosDisponivelPath, 'utf-8');
+
+        console.log("Segue abaixo a lista de livros: \n")
+        console.log(livrosDisponivel)
+    } catch (err) {
+        console.log('Erro ao ler os arquivos:', err);
+    }
+
+    menuadmin()
+}
+
+function addUser() {
+    const texto = `
+    ░█▀▀█ ▒█▀▀▄ ▒█▀▄▀█ ▀█▀ ▒█▄░▒█ 　 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 
+    ▒█▄▄█ ▒█░▒█ ▒█▒█▒█ ▒█░ ▒█▒█▒█ 　 ▒█▀▀▄ ▒█▀▀▄ ░▒█░░ 
+    ▒█░▒█ ▒█▄▄▀ ▒█░░▒█ ▄█▄ ▒█░░▀█ 　 ▒█▄▄█ ▒█▄▄█ ▄▀▒▀▄ 
+    `;
+    
+    console.log(texto);
+
+    const nomeUsuario = prompt("Digite o nome do usuário: ");
+    if (nomeUsuario.length > 8) {
+        console.log("Nome de usuário deve ter no máximo 8 caracteres. Tente novamente.");
+        addUser();
+        return;
+    }
+
+    const senha = prompt("Digite a senha do usuário (4 números): ");
+    if (!/^\d{4}$/.test(senha)) {
+        console.log("Senha deve conter exatamente 4 números. Tente novamente.");
+        addUser();
+        return;
+    }
+    
+    if (!usuarios.some(usuario => usuario.nomeUsuario === nomeUsuario)) {
+        usuarios.push({ nomeUsuario, senha });
+        salvarUsuario(nomeUsuario, senha);
+        console.log("Usuário adicionado com sucesso!");
+    } else {
+        console.log("Usuário já existe!");
+    }
+
+    menuadmin();
+}
+
+
+function removeUser() {
+    const nomeUsuario = prompt("Digite o nome do usuário a ser removido: ");
+
+    if (!nomeUsuario) {
+        console.log("Nome de usuário inválido. Tente novamente.");
+        removeUser()
+    } else if (!usuarios.some(usuario => usuario.nomeUsuario === nomeUsuario)) {
+        console.log("Usuário não encontrado. Tente novamente.");
+        removeUser()
+    } else {
+        usuarios = usuarios.filter(usuario => usuario.nomeUsuario !== nomeUsuario);
+        fs.writeFileSync("usuarios.txt", usuarios.map(usuario => usuario.nomeUsuario).join("\n"));
+        fs.writeFileSync("senhas.txt", usuarios.map(usuario => usuario.senha).join("\n"));
+        console.log("Usuário removido com sucesso!");
+    }
+
+    menuadmin();
+}
+
+
 
 carregarUsuarios();
 menuinicial();

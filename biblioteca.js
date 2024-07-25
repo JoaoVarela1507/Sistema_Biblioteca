@@ -46,19 +46,26 @@ function registrar() {
         usuarios.push({ nomeUsuario, senha });
         console.log("Registro bem-sucedido!");
         salvarUsuario(nomeUsuario, senha);
-        logar();
+        logar(0);
     }
 }
 
 
-function logar() {
+function logar(tentativas) {
+    console.clear();
     texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
     ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
     ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
     \n
-    `         
+    `        
+    
     console.log(texto);
     console.log("-LOGIN-");
+    
+    if (tentativas >= 1){
+        console.log("\nNome de usuário ou senha inválidos. Por favor, tente novamente.\n");
+    }
+
     let nomeUsuario = prompt("Digite seu nome de usuário: ");
     let senha = prompt("Digite sua senha: ");
 
@@ -71,8 +78,7 @@ function logar() {
         console.log("Bem-vindo ADMIN!!");
         menuadmin();
     } else {
-        console.log("Nome de usuário ou senha inválidos. Por favor, tente novamente.");
-        logar();
+        verificarEscolha(tentativas);
     }
 }
 
@@ -94,7 +100,7 @@ function menuinicial() {
             registrar();
             break;
         case "2":
-            logar();
+            logar(0);
             break;
         case "3":
             console.log("Até logo!");
@@ -107,15 +113,20 @@ function menuinicial() {
 }
 
 function menuadmin() {
-    texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
-    ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
-    ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
+    texto =`\n
+    
+    ░█▀▀█ ▒█▀▀▄ ▒█▀▄▀█ ▀█▀ ▒█▄░▒█ 　 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 
+    ▒█▄▄█ ▒█░▒█ ▒█▒█▒█ ▒█░ ▒█▒█▒█ 　 ▒█▀▀▄ ▒█▀▀▄ ░▒█░░ 
+    ▒█░▒█ ▒█▄▄▀ ▒█░░▒█ ▄█▄ ▒█░░▀█ 　 ▒█▄▄█ ▒█▄▄█ ▄▀▒▀▄ 
+
     \n
-    `         
+    `    
     console.log(texto);
     console.log("1. Adicionar Livros");
     console.log("2. Retirar Livros");
-    console.log("3. Sair");
+    console.log("3. Dados dos Clientes");
+    console.log("4. Listas de Livros");
+    console.log("5. Sair")
 
     let escolha = prompt("Escolha uma opção: ");
 
@@ -127,15 +138,21 @@ function menuadmin() {
             removerLivros();
             break;
         case "3":
+           dadosCliente()
+        case "4":
+            livrosAdm()
+        case "5":
             console.log("Até logo!");
             process.exit(0);
         default:
-            console.log("Opção inválida. Por favor, escolha 1, 2 ou 3.");
+            console.log("Opção inválida. Por favor, escolha 1, 2, 3 ou 4.");
             menuadmin();
     }
 }
 
 function menuprincipal(nomeUsuario) {
+
+    console.clear(0);
     texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
     ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
     ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
@@ -149,12 +166,11 @@ function menuprincipal(nomeUsuario) {
     console.log("5. Voltar para o menu de login");
     console.log("6. Sair");  
 
-    let escolha = prompt("Escolha uma opção: ");
+    let escolha = prompt("\nEscolha uma opção: ");
 
     switch (escolha) {
         case "1":
             mostrarMeusLivros(nomeUsuario);
-            menuprincipal(nomeUsuario);
             break;
         case "2":
             mostrarLivrosDisponiveis(nomeUsuario);
@@ -169,17 +185,25 @@ function menuprincipal(nomeUsuario) {
             menuinicial();
         case "6":
             console.log("Até logo!");
-            process.exit(0);;
+            process.exit(0);
         default:
-            console.log("Opção inválida. Por favor, escolha 1, 2, 3, 4 ou 5.");
+            console.log("Opção inválida. Por favor, escolha 1, 2, 3, 4, 5 ou 6.");
             menuprincipal(nomeUsuario);
     }
 }
 
 function mostrarLivrosDisponiveis(nomeUsuario) {
-    texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
-    ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
-    ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
+    console.clear(0);
+
+    const texto =`\n
+    
+    ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 　 　 　 　 　  █░░ ░▀░ ▀█░█▀ █▀▀█ █▀▀█ █▀▀ 
+    ▒█▀▀▄ ▒█▀▀▄ ░▒█░░ 　 　 　 　 　  █░░ ▀█▀ ░█▄█░ █▄▄▀ █░░█ ▀▀█ 
+    ▒█▄▄█ ▒█▄▄█ ▄▀▒▀▄ 　 　 　 　 　  ▀▀▀ ▀▀▀ ░░▀░░ ▀░▀▀ ▀▀▀▀ ▀▀▀ 
+
+　 　 　 　 　 　 　 　 　 █▀▀▄ ░▀░ █▀▀ █▀▀█ █▀▀█ █▀▀▄ ░▀░ ▀█░█▀ █▀▀ ░▀░ █▀▀ 
+　 　 　 　 　 　 　 　 　 █░░█ ▀█▀ ▀▀█ █░░█ █░░█ █░░█ ▀█▀ ░█▄█░ █▀▀ ▀█▀ ▀▀█ 
+　 　 　 　 　 　 　 　 　 ▀▀▀░ ▀▀▀ ▀▀▀ █▀▀▀ ▀▀▀▀ ▀░░▀ ▀▀▀ ░░▀░░ ▀▀▀ ▀▀▀ ▀▀▀ 
     \n
     `         
     console.log(texto);
@@ -191,7 +215,7 @@ function mostrarLivrosDisponiveis(nomeUsuario) {
         const linhas = data.split('\n');
 
         if (linhas.length > 0) {
-            console.log("Livros disponíveis:");
+            console.log("\nLivros disponíveis: \n");
             linhas.forEach((linha, index) => {
                 const partes = linha.split(',');
                 if (partes.length === 3) {
@@ -202,25 +226,61 @@ function mostrarLivrosDisponiveis(nomeUsuario) {
                 }
             });
 
-            let escolha = prompt("Escolha um número para adicionar à sua lista (ou '0' para voltar): ");
+            let escolha = prompt("\nEscolha um livro para adicionar à sua lista (ou '0' para voltar): ");
             escolha = parseInt(escolha);
 
             if (escolha > 0 && escolha <= linhas.length) {
-                adicionarLivroUsuario(nomeUsuario, linhas[escolha - 1]);
-                removerLivroDisponivel(linhas[escolha - 1], nomeArquivo);
-                console.log("\nParabéns, ótima escolha, livro adicionado à sua lista pessoal com sucesso!!\n");
+                const partes = linhas[escolha - 1].split(',');
+                const titulo = partes[0].trim();
+                const autor = partes[1].trim();
+                const classificacao = partes[2].trim();
+                
+                let confirmacao = prompt(`\nVocê escolheu o livro: Título: ${titulo}, Autor: ${autor}, Classificação: ${classificacao}. Deseja confirmar a escolha? (1: sim / 2: não) : `);
+                confirmacao = parseInt(confirmacao);
+
+                if (confirmacao === 1) {
+                    adicionarLivroUsuario(nomeUsuario, linhas[escolha - 1]);
+                    removerLivroDisponivel(linhas[escolha - 1], nomeArquivo);
+                    console.log("\nParabens, ótima escolha, livro adicionado à sua lista pessoal com sucesso!! \n\nATENÇÃO : você tem até uma semana para devolver, caso passe do prazo será cobrado uma taxa de R$ 7,00(Você poderá renovar até 3 vezes o mesmo livro) !! \n\nCaso não renove ou devolva o livro em uma semana será cobrado um taxa para cada dia de atraso de R$ 2,00, caso passe 1 mês e não haver alguma tentativa de devolução você NÃO poderá alugar livros por 9 meses!!\n");
+                    // implementar o texto de aviso
+    
+
+                    let proximaAcao = prompt("\nDeseja sair da aplicação, selecionar outro livro ou voltar para o menu principal? (1: para outro / 2: para menu principal / 3: para sair): ");
+                    proximaAcao = parseInt(proximaAcao);
+
+                    if (proximaAcao === 1) {
+                        mostrarLivrosDisponiveis(nomeUsuario);
+                        return;
+                    } else if (proximaAcao === 2) {
+                        menuprincipal(nomeUsuario);
+                        return;
+                    } else if (proximaAcao === 3) {
+                        console.log("\nObrigado por usar a aplicação! Até a próxima.\n");
+                        process.exit(0);
+                    } else {
+                        console.log("\nOpção inválida, retornando ao menu principal.\n");
+                        menuprincipal(nomeUsuario);
+                    }
+                } else if (confirmacao === 2) {
+                    console.log("\nOperação cancelada.\n");
+                    menuprincipal(nomeUsuario);
+                } else {
+                    console.log("\nOpção inválida, retornando ao menu principal.\n");
+                    menuprincipal(nomeUsuario);
+                }
 
             } else if (escolha !== 0) {
-                console.log("Opção inválida.");
+                console.log("\nOpção inválida.\n");
+                menuprincipal(nomeUsuario);
             }
         } else {
-            console.log("Nenhum livro disponível no momento.");
+            console.log("\nNenhum livro disponível no momento.\n");
+            menuprincipal(nomeUsuario);
         }
     } catch (err) {
-        console.error('Erro ao ler o arquivo:', err);
+        console.error('\nErro ao ler o arquivo:', err);
+        menuprincipal(nomeUsuario);
     }
-
-    menuprincipal(nomeUsuario);
 }
 
 function adicionarLivroUsuario(nomeUsuario, livro) {
@@ -241,9 +301,16 @@ function removerLivroDisponivel(livro, nomeArquivo) {
 }
 
 function mostrarMeusLivros(nomeUsuario) {
-    texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
-    ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
-    ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
+    console.clear(0);
+    const texto =`\n
+
+▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 　 　 　 　 　 █▀▄▀█ █▀▀ █░░█ █▀▀ 
+▒█▀▀▄ ▒█▀▀▄ ░▒█░░ 　 　 　 　 　 █░▀░█ █▀▀ █░░█ ▀▀█ 
+▒█▄▄█ ▒█▄▄█ ▄▀▒▀▄ 　 　 　 　 　 ▀░░░▀ ▀▀▀ ░▀▀▀ ▀▀▀ 
+
+　 　 　 　 　 　 　 　 　 　█░░ ░▀░ ▀█░█▀ █▀▀█ █▀▀█ █▀▀ 
+　 　 　 　 　 　 　 　 　 　█░░ ▀█▀ ░█▄█░ █▄▄▀ █░░█ ▀▀█ 
+　 　 　 　 　 　 　 　 　 　▀▀▀ ▀▀▀ ░░▀░░ ▀░▀▀ ▀▀▀▀ ▀▀▀ 
     \n
     `         
     console.log(texto);
@@ -256,26 +323,42 @@ function mostrarMeusLivros(nomeUsuario) {
             const linhas = data.split('\n');
 
             if (linhas.length > 0) {
-                console.log(`Livros de ${nomeUsuario}:`);
+                console.log(`\nLivros de ${nomeUsuario}:\n`);
                 linhas.forEach((linha, index) => {
                     console.log(`${index + 1}. ${linha}`);
                 });
             } else {
-                console.log(`Nenhum livro encontrado para ${nomeUsuario}.`);
+                console.log(`\nNenhum livro encontrado para ${nomeUsuario}.\n`);
             }
         } catch (err) {
-            console.error(`Erro ao ler os livros de ${nomeUsuario}:`, err);
+            console.error(`\nErro ao ler os livros de ${nomeUsuario}:`, err);
         }
     } else {
-        console.log("Esse usuário não tem uma lista de livros.");
+        console.log("\nEsse usuário não tem uma lista de livros.\n");
     }
-    menuprincipal(nomeUsuario);
+
+    let acao = prompt("\nDeseja sair da aplicação ou voltar para o menu principal? (1: para menu principal / 2: para sair): ");
+    acao = parseInt(acao);
+
+    if (acao === 1) {
+        menuprincipal(nomeUsuario);
+    } else if (acao === 2) {
+        console.log("\nObrigado por usar a aplicação! Até a próxima.\n");
+        process.exit(0);
+    } else {
+        console.log("\nOpção inválida, retornando ao menu principal.\n");
+        menuprincipal(nomeUsuario);
+    }
 }
 
 function removerLivros() {
-    texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
-    ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
-    ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
+    console.clear(0);
+    const texto =`\n
+    
+    ░█▀▀█ ▒█▀▀▄ ▒█▀▄▀█ ▀█▀ ▒█▄░▒█ 　 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 
+    ▒█▄▄█ ▒█░▒█ ▒█▒█▒█ ▒█░ ▒█▒█▒█ 　 ▒█▀▀▄ ▒█▀▀▄ ░▒█░░ 
+    ▒█░▒█ ▒█▄▄▀ ▒█░░▒█ ▄█▄ ▒█░░▀█ 　 ▒█▄▄█ ▒█▄▄█ ▄▀▒▀▄ 
+
     \n
     `         
     console.log(texto);
@@ -301,8 +384,7 @@ function removerLivros() {
             escolha = parseInt(escolha);
 
             if (escolha > 0 && escolha <= linhas.length) {
-                const livroRemover = linhas[escolha - 1];
-                linhas.splice(livroRemover, 1);
+                linhas.splice(escolha - 1, 1);  // Corrigido para remover o item correto
                 fs.writeFileSync(arquivoTxt, linhas.join('\n'), 'utf8');
                 console.log("Livro removido com sucesso!");
             } else if (escolha !== 0) {
@@ -315,13 +397,30 @@ function removerLivros() {
         console.error('Erro ao ler o arquivo:', err);
     }
 
-    menuadmin();
+    let proximaAcao = prompt("Deseja remover outro livro, voltar para o menu principal ou sair? (1 para remover outro / 2 para menu principal / 3 para sair): ");
+    proximaAcao = parseInt(proximaAcao);
+
+    if (proximaAcao === 1) {
+        removerLivros();
+    } else if (proximaAcao === 2) {
+        menuadmin();
+    } else if (proximaAcao === 3) {
+        console.log("Obrigado por usar a aplicação! Até a próxima.");
+        process.exit(0);
+    } else {
+        console.log("Opção inválida, retornando ao menu principal.");
+        menuadmin();
+    }
 }
 
 function addLivrosAdm() {
-    texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
-    ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
-    ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
+    console.clear(0);
+    const texto =`\n
+    
+    ░█▀▀█ ▒█▀▀▄ ▒█▀▄▀█ ▀█▀ ▒█▄░▒█ 　 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 
+    ▒█▄▄█ ▒█░▒█ ▒█▒█▒█ ▒█░ ▒█▒█▒█ 　 ▒█▀▀▄ ▒█▀▀▄ ░▒█░░ 
+    ▒█░▒█ ▒█▄▄▀ ▒█░░▒█ ▄█▄ ▒█░░▀█ 　 ▒█▄▄█ ▒█▄▄█ ▄▀▒▀▄ 
+
     \n
     `         
     console.log(texto);
@@ -349,13 +448,33 @@ function addLivrosAdm() {
         console.log(`O livro "${nomeLivro}" do autor "${autorLivro}" foi adicionado com sucesso.`);
     }
 
-    menuadmin();
+    let proximaAcao = prompt("Deseja adicionar outro livro, voltar para o menu principal ou sair? (1 para adicionar outro / 2 para menu principal / 3 para sair): ");
+    proximaAcao = parseInt(proximaAcao);
+
+    if (proximaAcao === 1) {
+        addLivrosAdm();
+    } else if (proximaAcao === 2) {
+        menuadmin();
+    } else if (proximaAcao === 3) {
+        console.log("Obrigado por usar a aplicação! Até a próxima.");
+        process.exit(0);
+    } else {
+        console.log("Opção inválida, retornando ao menu principal.");
+        menuadmin();
+    }
 }
 
 function mostrarLivrosAlugados(nomeUsuario){
-    texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
-    ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
-    ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
+    console.clear(0);
+    texto =`\n
+
+▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 　 　 　 　 　 █░░ ░▀░ ▀█░█▀ █▀▀█ █▀▀█ █▀▀ 
+▒█▀▀▄ ▒█▀▀▄ ░▒█░░ 　 　 　 　 　 █░░ ▀█▀ ░█▄█░ █▄▄▀ █░░█ ▀▀█ 
+▒█▄▄█ ▒█▄▄█ ▄▀▒▀▄ 　 　 　 　 　 ▀▀▀ ▀▀▀ ░░▀░░ ▀░▀▀ ▀▀▀▀ ▀▀▀ 
+
+　 　 　 　 　 　 　 　 　 　 █▀▀█ █░░ █░░█ █▀▀▀ █▀▀█ █▀▀▄ █▀▀█ █▀▀ 
+　 　 　 　 　 　 　 　 　 　 █▄▄█ █░░ █░░█ █░▀█ █▄▄█ █░░█ █░░█ ▀▀█ 
+　 　 　 　 　 　 　 　 　 　 ▀░░▀ ▀▀▀ ░▀▀▀ ▀▀▀▀ ▀░░▀ ▀▀▀░ ▀▀▀▀ ▀▀▀ 
     \n
     `         
     console.log(texto);
@@ -367,44 +486,64 @@ function mostrarLivrosAlugados(nomeUsuario){
         try {    
             let user = nomes[i];
             let nomeArquivo = `meuslivros_${user}.txt`;
-            if (fs.existsSync(nomeArquivo)){
+            if (fs.existsSync(nomeArquivo) && user != nomeUsuario){
                 if (fs.readFileSync(`meuslivros_${user}.txt`, "utf-8").split("\n").filter(Boolean) != ""){
                     contador += 1;
                     const dataUsuarios = fs.readFileSync(nomeArquivo, 'utf8');
-                    console.log(`- ${user} -\n `+ dataUsuarios +`------`);
+                    console.log(`\n- ${user} -\n\n `+ dataUsuarios +`------------------------------------`);
                 }
             }
         } catch (err) {
-            console.error(`Erro ao ler os livros alugados de ${user}:`, err);
+            console.error(`\nErro ao ler os livros alugados de ${user}:`, err);
         }
     }
     if (contador === 0){
-        console.log("Não existem livros alugados no momento.\n");
+        console.log("\nNão existem livros alugados por outros usuários no momento.\n");
     }
 
-    menuprincipal(nomeUsuario);
+    let proximaAcao = prompt("\nDeseja voltar para o menu principal ou sair? ( 1: para menu principal / 2: para sair): ");
+    proximaAcao = parseInt(proximaAcao);
+
+    if (proximaAcao === 1) {
+        menuprincipal(nomeUsuario);
+    } else if (proximaAcao === 2) {
+        console.log("\nObrigado por usar a aplicação! Até a próxima.\n");
+        process.exit(0);
+    } else {
+        console.log("\nOpção inválida, retornando ao menu principal.\n");
+        menuprincipal(nomeUsuario);
+    }
 }
 
 function devolverLivros(nomeUsuario) {
-    texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
-    ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
-    ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
+    console.clear(0);
+    
+
+    texto =`\n
+
+▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 　 　 　 █▀▀▄ █▀▀ ▀█░█▀ █▀▀█ █░░ ▀█░█▀ █▀▀ █▀▀█ 
+▒█▀▀▄ ▒█▀▀▄ ░▒█░░ 　 　 　 █░░█ █▀▀ ░█▄█░ █░░█ █░░ ░█▄█░ █▀▀ █▄▄▀ 
+▒█▄▄█ ▒█▄▄█ ▄▀▒▀▄ 　 　 　 ▀▀▀░ ▀▀▀ ░░▀░░ ▀▀▀▀ ▀▀▀ ░░▀░░ ▀▀▀ ▀░▀▀ 
+
+　 　 　 　 　 　 　 　 　 　 　 　 █░░ ░▀░ ▀█░█▀ █▀▀█ █▀▀█ █▀▀ 
+　 　 　 　 　 　 　 　 　 　 　 　 █░░ ▀█▀ ░█▄█░ █▄▄▀ █░░█ ▀▀█ 
+　 　 　 　 　 　 　 　 　 　 　 　 ▀▀▀ ▀▀▀ ░░▀░░ ▀░▀▀ ▀▀▀▀ ▀▀▀ 
+
     \n
     `         
     console.log(texto);
-    console.log(`Bem-vindo ${nomeUsuario}!`);
     const nomeArquivo = `meuslivros_${nomeUsuario}.txt`;
     try {
         const data = fs.readFileSync(nomeArquivo, 'utf8');
         const linhas = data.split('\n');
         
         if (linhas.length > 0) {
-            console.log(`Livros de ${nomeUsuario}:`);
+            console.log(`\nLivros de ${nomeUsuario}:\n`);
             linhas.forEach((linha, index) => {
                 console.log(`${index + 1}. ${linha}`);
             });
             
-            let escolha = prompt("Escolha um número para devolver à biblioteca (ou '0' para voltar): ");
+            let escolha = prompt("\nEscolha um número para devolver à biblioteca (ou '0' para voltar): ");
             escolha = parseInt(escolha);
             
             if (escolha > 0 && escolha <= linhas.length) {
@@ -412,15 +551,17 @@ function devolverLivros(nomeUsuario) {
                 console.log("\nLivro devolvido com sucesso!!\n\n");
                 removerLivroUsuario(nomeArquivo, escolha - 1);
             } else if (escolha !== 0) {
-                console.log("Opção inválida.");
+                console.log("\nOpção inválida.\n");
             }
         } else {
-            console.log(`Nenhum livro encontrado para ${nomeUsuario}.`);
+            console.log(`\nNenhum livro encontrado para ${nomeUsuario}.\n`);
         }
     } catch (err) {
-        console.error(`Erro ao ler os livros de ${nomeUsuario}:`, err);
+        console.error(`Você não tem livros alugados para devolver.`);
     }
     menuprincipal(nomeUsuario);
+//função de chamar 3 caminhos, mylenna e Bia
+
 }
 
 function adicionarLivroDisponivel(livro) {
@@ -451,5 +592,81 @@ function removerLivroUsuario(nomeArquivo, indice) {
     }
 }
 
+function verificarEscolha(tentativas){
+    tentativas += 1
+    if (tentativas >= 3){
+        let voltar = prompt("Deseja voltar para o menu inicial?(SIM = 1/NÃO = 2) ")
+        if (voltar === '1'){
+            menuinicial()
+        } else if (voltar === '2') {
+            logar(0)
+        } else {
+            console.log("Escolha uma opção válida")
+            verificarEscolha(tentativas)
+        }
+    } else {
+        logar(tentativas)
+    }
+}
+
+function dadosCliente() {
+    console.clear(0);
+    const texto =`\n
+    
+    ░█▀▀█ ▒█▀▀▄ ▒█▀▄▀█ ▀█▀ ▒█▄░▒█ 　 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 
+    ▒█▄▄█ ▒█░▒█ ▒█▒█▒█ ▒█░ ▒█▒█▒█ 　 ▒█▀▀▄ ▒█▀▀▄ ░▒█░░ 
+    ▒█░▒█ ▒█▄▄▀ ▒█░░▒█ ▄█▄ ▒█░░▀█ 　 ▒█▄▄█ ▒█▄▄█ ▄▀▒▀▄ 
+
+    \n
+    `
+    console.log(texto);
+    
+    const senhasPath = './senhas.txt';
+    const userPath = './usuarios.txt';
+
+    try {
+        const senhas = fs.readFileSync(senhasPath, 'utf8');
+        const user = fs.readFileSync(userPath, 'utf8');
+
+        console.log("\nSegue abaixo os Clientes e suas senhas: \n");
+        console.log(`Clientes: \n${user}\n`);
+        console.log(`Senhas: \n${senhas}\n`);
+    } catch (err) {
+        console.error('\nErro ao ler os arquivos:', err);
+    }
+
+    menuadmin()
+}
+
+function livrosAdm(){
+    console.clear(0);
+    const texto =`\n
+    
+    ░█▀▀█ ▒█▀▀▄ ▒█▀▄▀█ ▀█▀ ▒█▄░▒█ 　 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 
+    ▒█▄▄█ ▒█░▒█ ▒█▒█▒█ ▒█░ ▒█▒█▒█ 　 ▒█▀▀▄ ▒█▀▀▄ ░▒█░░ 
+    ▒█░▒█ ▒█▄▄▀ ▒█░░▒█ ▄█▄ ▒█░░▀█ 　 ▒█▄▄█ ▒█▄▄█ ▄▀▒▀▄ 
+
+    \n
+    `
+    console.log(texto);
+
+    const livrosPath = './livrosdisponiveis.txt'
+
+    try {
+        const livrosAdm = fs.readFileSync(livrosPath, 'utf8');
+        
+        console.log("\nSegue abaixo os a lista de todos os livros: \n");
+        console.log(`-->: \n${livrosAdm}\n`);
+    } catch (err) {
+        console.error('\nErro ao ler os arquivos:', err);
+    }
+
+    menuadmin()
+
+}
+
 carregarUsuarios();
 menuinicial();
+
+//
+// COLOCAR O CONSOLE.CLEAR() EM TODAS AS FUNÇÕES

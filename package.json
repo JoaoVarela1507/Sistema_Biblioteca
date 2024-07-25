@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "node.js": "^0.0.1-security",
     "prompt-sync": "^4.2.0"
   }
 }

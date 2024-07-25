@@ -144,7 +144,7 @@ function menuadmin() {
 
 function menuprincipal(nomeUsuario) {
 
-    console.clear();
+    console.clear(0);
     texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
     ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
     ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
@@ -233,7 +233,7 @@ function mostrarLivrosDisponiveis(nomeUsuario) {
                 if (confirmacao === 1) {
                     adicionarLivroUsuario(nomeUsuario, linhas[escolha - 1]);
                     removerLivroDisponivel(linhas[escolha - 1], nomeArquivo);
-                    console.log("\nParabéns, ótima escolha, livro adicionado à sua lista pessoal com sucesso!!\n");
+                    console.log("\nParabens, ótima escolha, livro adicionado à sua lista pessoal com sucesso!! \n\nATENÇÃO : você tem até uma semana para devolver, caso passe do prazo será cobrado uma taxa de R$ 7,00(Você poderá renovar até 3 vezes o mesmo livro) !! \n\nCaso não renove ou devolva o livro em uma semana será cobrado um taxa para cada dia de atraso de R$ 2,00, caso passe 1 mês e não haver alguma tentativa de devolução você NÃO poderá alugar livros por 9 meses!!\n");
                     // implementar o texto de aviso
     
 

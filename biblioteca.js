@@ -137,7 +137,7 @@ function menuadmin() {
         case "3":
             dadosCliente();
         default:
-            console.log("Opção inválida. Por favor, escolha 1, 2 ou 3.");
+            console.log("Opção inválida. Por favor, escolha 1, 2, 3 ou 4.");
             menuadmin();
     }
 }

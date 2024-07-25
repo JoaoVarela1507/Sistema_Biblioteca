@@ -477,6 +477,22 @@ function mostrarLivrosAlugados(nomeUsuario){
  
 }
 
+    let proximaAcao = prompt("Deseja voltar para o menu principal ou sair? ( 1 para menu principal / 2 para sair): ");
+    proximaAcao = parseInt(proximaAcao);
+
+    if (proximaAcao === 1) {
+        menuprincipal();
+    } else if (proximaAcao === 2) {
+        console.log("Obrigado por usar a aplicação! Até a próxima.");
+        process.exit(0);
+
+    } else {
+        console.log("Opção inválida, retornando ao menu principal.");
+        menuprincipal();
+        
+    }
+
+
 function devolverLivros(nomeUsuario) {
     texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
     ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 

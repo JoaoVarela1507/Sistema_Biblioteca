@@ -1,7 +1,13 @@
-const fs = require('fs');
-const prompt = require("prompt-sync")();
+import fs from 'fs';
+import path from 'path';
+import chalk from 'chalk';
+
+// Importação dinâmica para `prompt-sync`
+const promptSync = (await import('prompt-sync')).default;
+const prompt = promptSync();
 
 let usuarios = [];
+
 
 function carregarUsuarios() {
     if (fs.existsSync("usuarios.txt") && fs.existsSync("senhas.txt")) {
@@ -53,11 +59,11 @@ function registrar() {
 
 function logar(tentativas) {
     console.clear();
-    texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
+    const texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
     ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
     ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
     \n
-    `        
+    `;        
     
     console.log(texto);
     console.log("-LOGIN-");
@@ -83,11 +89,12 @@ function logar(tentativas) {
 }
 
 function menuinicial() {
-    texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
+    const texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
     ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
     ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
     \n
-    `         
+    `;    
+    
     console.log(texto);
     console.log("1. Registrar");
     console.log("2. Logar");
@@ -113,14 +120,14 @@ function menuinicial() {
 }
 
 function menuadmin() {
-    texto =`\n
+    const texto =`\n
     
     ░█▀▀█ ▒█▀▀▄ ▒█▀▄▀█ ▀█▀ ▒█▄░▒█ 　 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 
     ▒█▄▄█ ▒█░▒█ ▒█▒█▒█ ▒█░ ▒█▒█▒█ 　 ▒█▀▀▄ ▒█▀▀▄ ░▒█░░ 
     ▒█░▒█ ▒█▄▄▀ ▒█░░▒█ ▄█▄ ▒█░░▀█ 　 ▒█▄▄█ ▒█▄▄█ ▄▀▒▀▄ 
 
     \n
-    `    
+    `;    
     console.log(texto);
     console.log("1. Adicionar Livros");
     console.log("2. Retirar Livros");
@@ -153,7 +160,7 @@ function menuadmin() {
 function menuprincipal(nomeUsuario) {
 
     console.clear(0);
-    texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
+    const texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
     ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
     ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
     \n
@@ -466,7 +473,7 @@ function addLivrosAdm() {
 
 function mostrarLivrosAlugados(nomeUsuario){
     console.clear(0);
-    texto =`\n
+    const texto =`\n
 
 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 　 　 　 　 　 █░░ ░▀░ ▀█░█▀ █▀▀█ █▀▀█ █▀▀ 
 ▒█▀▀▄ ▒█▀▀▄ ░▒█░░ 　 　 　 　 　 █░░ ▀█▀ ░█▄█░ █▄▄▀ █░░█ ▀▀█ 
@@ -476,7 +483,7 @@ function mostrarLivrosAlugados(nomeUsuario){
 　 　 　 　 　 　 　 　 　 　 █▄▄█ █░░ █░░█ █░▀█ █▄▄█ █░░█ █░░█ ▀▀█ 
 　 　 　 　 　 　 　 　 　 　 ▀░░▀ ▀▀▀ ░▀▀▀ ▀▀▀▀ ▀░░▀ ▀▀▀░ ▀▀▀▀ ▀▀▀ 
     \n
-    `         
+    `;         
     console.log(texto);
     let contador = 0;
     console.log(`Os livros que já estão alugados são:\n`);
@@ -519,7 +526,7 @@ function devolverLivros(nomeUsuario) {
     console.clear(0);
     
 
-    texto =`\n
+   const texto =`\n
 
 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 　 　 　 █▀▀▄ █▀▀ ▀█░█▀ █▀▀█ █░░ ▀█░█▀ █▀▀ █▀▀█ 
 ▒█▀▀▄ ▒█▀▀▄ ░▒█░░ 　 　 　 █░░█ █▀▀ ░█▄█░ █░░█ █░░ ░█▄█░ █▀▀ █▄▄▀ 
@@ -530,7 +537,7 @@ function devolverLivros(nomeUsuario) {
 　 　 　 　 　 　 　 　 　 　 　 　 ▀▀▀ ▀▀▀ ░░▀░░ ▀░▀▀ ▀▀▀▀ ▀▀▀ 
 
     \n
-    `         
+    `;        
     console.log(texto);
     const nomeArquivo = `meuslivros_${nomeUsuario}.txt`;
     try {

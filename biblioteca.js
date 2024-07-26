@@ -10,25 +10,29 @@ let usuarios = [];
 
 
 function carregarUsuarios() {
-    if (fs.existsSync("usuarios.txt") && fs.existsSync("senhas.txt")) {
+    if (fs.existsSync("usuarios.txt") && fs.existsSync("senhas.txt") && fs.existsSync("idades.txt")) {
         const nomes = fs.readFileSync("usuarios.txt", "utf-8").split("\n").filter(Boolean);
         const senhas = fs.readFileSync("senhas.txt", "utf-8").split("\n").filter(Boolean);
+        const idades = fs.readFileSync("idades.txt", "utf-8").split("\n").filter(Boolean);
+
 
         for (let i = 0; i < nomes.length; i++) {
-            usuarios.push({ nomeUsuario: nomes[i], senha: senhas[i] });
+            usuarios.push({ nomeUsuario: nomes[i], senha: senhas[i], idade: idades[i] });
         }
     }
 }
 
-function salvarUsuario(nomeUsuario, senha) {
+function salvarUsuario(nomeUsuario, senha, idade) {
     fs.appendFileSync("usuarios.txt", nomeUsuario + "\n");
     fs.appendFileSync("senhas.txt", senha + "\n");
+    fs.appendFileSync("idades.txt", idade + "\n");
 }
 
 function registrar() {
     console.log("-REGISTER-");
     let nomeUsuario = prompt("Digite um nome de usuário (até 8 caracteres): ");
     let senha = prompt("Digite uma senha (4 números): ");
+    let idade = prompt("Digite sua idade: ");
     
     if (nomeUsuario.length > 8) {
         console.log("Nome de usuário deve ter no máximo 8 caracteres. Tente novamente.");
@@ -49,9 +53,9 @@ function registrar() {
         console.log("Nome de usuário ou senha já existem. Por favor, escolha outro.");
         registrar();
     } else {
-        usuarios.push({ nomeUsuario, senha });
+        usuarios.push({ nomeUsuario, senha, idade});
         console.log("Registro bem-sucedido!");
-        salvarUsuario(nomeUsuario, senha);
+        salvarUsuario(nomeUsuario, senha, idade);
         logar(0);
     }
 }
@@ -248,11 +252,18 @@ function mostrarLivrosDisponiveis(nomeUsuario) {
                 confirmacao = parseInt(confirmacao);
 
                 if (confirmacao === 1) {
-                    adicionarLivroUsuario(nomeUsuario, linhas[escolha - 1]);
-                    removerLivroDisponivel(linhas[escolha - 1], nomeArquivo);
-                    console.log("\nParabens, ótima escolha, livro adicionado à sua lista pessoal com sucesso!! \n\nATENÇÃO : você tem até uma semana para devolver, caso passe do prazo será cobrado uma taxa de R$ 7,00(Você poderá renovar até 3 vezes o mesmo livro) !! \n\nCaso não renove ou devolva o livro em uma semana será cobrado um taxa para cada dia de atraso de R$ 2,00, caso passe 1 mês e não haver alguma tentativa de devolução você NÃO poderá alugar livros por 9 meses!!\n");
-                    // implementar o texto de aviso
-    
+                    let idade = parseInt(verificarIdade(nomeUsuario))
+                    
+                    if (idade >= parseInt(classificacao)){
+                        console.log('salve')
+                        adicionarLivroUsuario(nomeUsuario, linhas[escolha - 1]);
+                        removerLivroDisponivel(linhas[escolha - 1], nomeArquivo);
+                        console.log("\nParabens, ótima escolha, livro adicionado à sua lista pessoal com sucesso!! \n\nATENÇÃO : você tem até uma semana para devolver, caso passe do prazo será cobrado uma taxa de R$ 7,00(Você poderá renovar até 3 vezes o mesmo livro) !! \n\nCaso não renove ou devolva o livro em uma semana será cobrado um taxa para cada dia de atraso de R$ 2,00, caso passe 1 mês e não haver alguma tentativa de devolução você NÃO poderá alugar livros por 9 meses!!\n");
+                        // implementar o texto de aviso
+
+                    } else if (idade < parseInt(classificacao)){
+                        console.log("\nVocê não tem idade suficiente para alugar este livro.")
+                    }
 
                     let proximaAcao = prompt("\nDeseja sair da aplicação, selecionar outro livro ou voltar para o menu principal? (1: para outro / 2: para menu principal / 3: para sair): ");
                     proximaAcao = parseInt(proximaAcao);
@@ -704,6 +715,18 @@ function livrosAdm() {
     }
 }
 
+function verificarIdade(nomeUsuario){
+    const nomes = fs.readFileSync("usuarios.txt", "utf-8").split("\n").filter(Boolean);
+    const idades = fs.readFileSync("idades.txt", "utf-8").split("\n").filter(Boolean);               
+
+    for (let i = 0; i < usuarios.length; i++){
+        let user = nomes[i]
+        if (user == nomeUsuario){
+            const idade = idades[i]
+            return idade
+        }
+    }
+}
 
 carregarUsuarios();
 menuinicial();

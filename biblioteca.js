@@ -228,7 +228,7 @@ function mostrarLivrosDisponiveis(nomeUsuario) {
         const linhas = data.split('\n');
 
         if (linhas.length > 0) {
-            console.log("\nLivros disponíveis: \n");
+            console.log("\n ✔ Livros disponíveis: \n");
             linhas.forEach((linha, index) => {
                 const partes = linha.split(',');
                 if (partes.length === 3) {
@@ -239,7 +239,7 @@ function mostrarLivrosDisponiveis(nomeUsuario) {
                 }
             });
 
-            let escolha = prompt("\nEscolha um livro para adicionar à sua lista (ou '0' para voltar): ");
+            let escolha = prompt("\n ▶ Escolha um livro para adicionar à sua lista (ou '0' para voltar): ");
             escolha = parseInt(escolha);
 
             if (escolha > 0 && escolha <= linhas.length) {
@@ -248,24 +248,30 @@ function mostrarLivrosDisponiveis(nomeUsuario) {
                 const autor = partes[1].trim();
                 const classificacao = partes[2].trim();
                 
-                let confirmacao = prompt(`\nVocê escolheu o livro: Título: ${titulo}, Autor: ${autor}, Classificação: ${classificacao}. Deseja confirmar a escolha? (1: sim / 2: não) : `);
+                let confirmacao = prompt(`\n ✎  Você escolheu o livro: Título: ${titulo}, Autor: ${autor}, Classificação: ${classificacao}.\n\n ☑ Deseja confirmar a escolha? (1: sim / 2: não) : `);
                 confirmacao = parseInt(confirmacao);
 
                 if (confirmacao === 1) {
                     let idade = parseInt(verificarIdade(nomeUsuario))
                     
                     if (idade >= parseInt(classificacao)){
-                        console.log('salve')
+
                         adicionarLivroUsuario(nomeUsuario, linhas[escolha - 1]);
                         removerLivroDisponivel(linhas[escolha - 1], nomeArquivo);
-                        console.log("\nParabens, ótima escolha, livro adicionado à sua lista pessoal com sucesso!! \n\nATENÇÃO : você tem até uma semana para devolver, caso passe do prazo será cobrado uma taxa de R$ 7,00(Você poderá renovar até 3 vezes o mesmo livro) !! \n\nCaso não renove ou devolva o livro em uma semana será cobrado um taxa para cada dia de atraso de R$ 2,00, caso passe 1 mês e não haver alguma tentativa de devolução você NÃO poderá alugar livros por 9 meses!!\n");
-                        // implementar o texto de aviso
+                        console.log("\n ★  Parabens, ótima escolha, livro adicionado à sua lista pessoal com sucesso!! ★ \n")
+                        console.log("--------------------------------------------------------------------------------------------------------") 
+                        console.log("|ATENÇÃO : Tempo de devolução: 1 semana")  
+                        console.log("\n|          Taxa de atraso: R$ 7,00")
+                        console.log("\n|          Quantidades de Renovação: 3 vezes")
+                        console.log("\n|          Taxa adicional caso não devolva o livro: R$ 2,00/dia")
+                        console.log("\n|          Penalidade por não devolver depois de 1 mês de atraso: NÃO poderá alugar livros por 9 meses")
+                        console.log("--------------------------------------------------------------------------------------------------------") 
 
                     } else if (idade < parseInt(classificacao)){
-                        console.log("\nVocê não tem idade suficiente para alugar este livro.")
+                        console.log("\n ⌦ Você não tem idade suficiente para alugar este livro. ⌫ ")
                     }
 
-                    let proximaAcao = prompt("\nDeseja sair da aplicação, selecionar outro livro ou voltar para o menu principal? (1: para outro / 2: para menu principal / 3: para sair): ");
+                    let proximaAcao = prompt("\n ▶ Deseja sair da aplicação, selecionar outro livro ou voltar para o menu principal? (1: para outro / 2: para menu principal / 3: para sair): ");
                     proximaAcao = parseInt(proximaAcao);
 
                     if (proximaAcao === 1) {
@@ -275,30 +281,31 @@ function mostrarLivrosDisponiveis(nomeUsuario) {
                         menuprincipal(nomeUsuario);
                         return;
                     } else if (proximaAcao === 3) {
-                        console.log("\nObrigado por usar a aplicação! Até a próxima.\n");
+                        
+                        console.log("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ Obrigado por usar a aplicação! Até a próxima. ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n");
                         process.exit(0);
                     } else {
-                        console.log("\nOpção inválida, retornando ao menu principal.\n");
+                        console.log("\n ⌦ Opção inválida, retornando ao menu principal. ⌫ \n");
                         menuprincipal(nomeUsuario);
                     }
                 } else if (confirmacao === 2) {
-                    console.log("\nOperação cancelada.\n");
+                    console.log("\n ⌦ Operação cancelada. ⌫ \n");
                     menuprincipal(nomeUsuario);
                 } else {
-                    console.log("\nOpção inválida, retornando ao menu principal.\n");
+                    console.log("\n ⌦ Opção inválida, retornando ao menu principal. ⌫ \n");
                     menuprincipal(nomeUsuario);
                 }
 
             } else if (escolha !== 0) {
-                console.log("\nOpção inválida.\n");
+                console.log("\n ⌦ Opção inválida. ⌫ \n");
                 menuprincipal(nomeUsuario);
             }
         } else {
-            console.log("\nNenhum livro disponível no momento.\n");
+            console.log("\n ⌦ Nenhum livro disponível no momento, aguarde para novidades... ⌫ \n");
             menuprincipal(nomeUsuario);
         }
     } catch (err) {
-        console.error('\nErro ao ler o arquivo:', err);
+        console.error('\n ⌦ Erro ao ler o arquivo:', err);
         menuprincipal(nomeUsuario);
     }
 }

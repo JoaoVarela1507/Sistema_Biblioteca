@@ -1,28 +1,38 @@
-const fs = require('fs');
-const prompt = require("prompt-sync")();
+import fs from 'fs';
+import path from 'path';
+import chalk from 'chalk';
+
+// Importação dinâmica para `prompt-sync`
+const promptSync = (await import('prompt-sync')).default;
+const prompt = promptSync();
 
 let usuarios = [];
 
+
 function carregarUsuarios() {
-    if (fs.existsSync("usuarios.txt") && fs.existsSync("senhas.txt")) {
+    if (fs.existsSync("usuarios.txt") && fs.existsSync("senhas.txt") && fs.existsSync("idades.txt")) {
         const nomes = fs.readFileSync("usuarios.txt", "utf-8").split("\n").filter(Boolean);
         const senhas = fs.readFileSync("senhas.txt", "utf-8").split("\n").filter(Boolean);
+        const idades = fs.readFileSync("idades.txt", "utf-8").split("\n").filter(Boolean);
+
 
         for (let i = 0; i < nomes.length; i++) {
-            usuarios.push({ nomeUsuario: nomes[i], senha: senhas[i] });
+            usuarios.push({ nomeUsuario: nomes[i], senha: senhas[i], idade: idades[i] });
         }
     }
 }
 
-function salvarUsuario(nomeUsuario, senha) {
+function salvarUsuario(nomeUsuario, senha, idade) {
     fs.appendFileSync("usuarios.txt", nomeUsuario + "\n");
     fs.appendFileSync("senhas.txt", senha + "\n");
+    fs.appendFileSync("idades.txt", idade + "\n");
 }
 
 function registrar() {
     console.log("-REGISTER-");
     let nomeUsuario = prompt("Digite um nome de usuário (até 8 caracteres): ");
     let senha = prompt("Digite uma senha (4 números): ");
+    let idade = prompt("Digite sua idade: ");
     
     if (nomeUsuario.length > 8) {
         console.log("Nome de usuário deve ter no máximo 8 caracteres. Tente novamente.");
@@ -43,9 +53,9 @@ function registrar() {
         console.log("Nome de usuário ou senha já existem. Por favor, escolha outro.");
         registrar();
     } else {
-        usuarios.push({ nomeUsuario, senha });
+        usuarios.push({ nomeUsuario, senha, idade});
         console.log("Registro bem-sucedido!");
-        salvarUsuario(nomeUsuario, senha);
+        salvarUsuario(nomeUsuario, senha, idade);
         logar(0);
     }
 }
@@ -53,13 +63,19 @@ function registrar() {
 
 function logar(tentativas) {
     console.clear();
-    texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
+    const texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
     ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
     ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
     \n
-    `         
+    `;        
+    
     console.log(texto);
     console.log("-LOGIN-");
+    
+    if (tentativas >= 1){
+        console.log("\nNome de usuário ou senha inválidos. Por favor, tente novamente.\n");
+    }
+
     let nomeUsuario = prompt("Digite seu nome de usuário: ");
     let senha = prompt("Digite sua senha: ");
 
@@ -72,17 +88,18 @@ function logar(tentativas) {
         console.log("Bem-vindo ADMIN!!");
         menuadmin();
     } else {
-        console.log("Nome de usuário ou senha inválidos. Por favor, tente novamente.");
         verificarEscolha(tentativas);
     }
 }
 
-function menuinicial() {
-    texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
+function menuinicial() {   
+    console.clear(0);
+    const texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
     ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
     ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
     \n
-    `         
+    `;    
+    
     console.log(texto);
     console.log("1. Registrar");
     console.log("2. Logar");
@@ -98,7 +115,7 @@ function menuinicial() {
             logar(0);
             break;
         case "3":
-            console.log("Até logo!");
+            console.log("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ Obrigado por usar a BIBLIOTEX! Até a próxima. ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n");
             process.exit(0);
         default:
             console.log("Opção inválida. Por favor, escolha 1, 2 ou 3.");
@@ -108,19 +125,21 @@ function menuinicial() {
 }
 
 function menuadmin() {
-    texto =`\n
+    console.clear(0);
+    const texto =`\n
     
     ░█▀▀█ ▒█▀▀▄ ▒█▀▄▀█ ▀█▀ ▒█▄░▒█ 　 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 
     ▒█▄▄█ ▒█░▒█ ▒█▒█▒█ ▒█░ ▒█▒█▒█ 　 ▒█▀▀▄ ▒█▀▀▄ ░▒█░░ 
     ▒█░▒█ ▒█▄▄▀ ▒█░░▒█ ▄█▄ ▒█░░▀█ 　 ▒█▄▄█ ▒█▄▄█ ▄▀▒▀▄ 
 
     \n
-    `    
+    `;    
     console.log(texto);
     console.log("1. Adicionar Livros");
     console.log("2. Retirar Livros");
     console.log("3. Dados dos Clientes");
-    console.log("4. Sair");
+    console.log("4. Listas de Livros");
+    console.log("5. Sair")
 
     let escolha = prompt("Escolha uma opção: ");
 
@@ -131,11 +150,13 @@ function menuadmin() {
         case "2":
             removerLivros();
             break;
+        case "3":
+           dadosCliente()
         case "4":
+            livrosAdm()
+        case "5":
             console.log("Até logo!");
             process.exit(0);
-        case "3":
-            dadosCliente();
         default:
             console.log("Opção inválida. Por favor, escolha 1, 2, 3 ou 4.");
             menuadmin();
@@ -145,7 +166,7 @@ function menuadmin() {
 function menuprincipal(nomeUsuario) {
 
     console.clear(0);
-    texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
+    const texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
     ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
     ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
     \n
@@ -207,7 +228,7 @@ function mostrarLivrosDisponiveis(nomeUsuario) {
         const linhas = data.split('\n');
 
         if (linhas.length > 0) {
-            console.log("\nLivros disponíveis: \n");
+            console.log("\n ✔ Livros disponíveis: \n");
             linhas.forEach((linha, index) => {
                 const partes = linha.split(',');
                 if (partes.length === 3) {
@@ -218,7 +239,7 @@ function mostrarLivrosDisponiveis(nomeUsuario) {
                 }
             });
 
-            let escolha = prompt("\nEscolha um livro para adicionar à sua lista (ou '0' para voltar): ");
+            let escolha = prompt("\n ▶ Escolha um livro para adicionar à sua lista (ou '0' para voltar): ");
             escolha = parseInt(escolha);
 
             if (escolha > 0 && escolha <= linhas.length) {
@@ -227,17 +248,30 @@ function mostrarLivrosDisponiveis(nomeUsuario) {
                 const autor = partes[1].trim();
                 const classificacao = partes[2].trim();
                 
-                let confirmacao = prompt(`\nVocê escolheu o livro: Título: ${titulo}, Autor: ${autor}, Classificação: ${classificacao}. Deseja confirmar a escolha? (1: sim / 2: não) : `);
+                let confirmacao = prompt(`\n ✎  Você escolheu o livro: Título: ${titulo}, Autor: ${autor}, Classificação: ${classificacao}.\n\n ☑ Deseja confirmar a escolha? (1: sim / 2: não) : `);
                 confirmacao = parseInt(confirmacao);
 
                 if (confirmacao === 1) {
-                    adicionarLivroUsuario(nomeUsuario, linhas[escolha - 1]);
-                    removerLivroDisponivel(linhas[escolha - 1], nomeArquivo);
-                    console.log("\nParabens, ótima escolha, livro adicionado à sua lista pessoal com sucesso!! \n\nATENÇÃO : você tem até uma semana para devolver, caso passe do prazo será cobrado uma taxa de R$ 7,00(Você poderá renovar até 3 vezes o mesmo livro) !! \n\nCaso não renove ou devolva o livro em uma semana será cobrado um taxa para cada dia de atraso de R$ 2,00, caso passe 1 mês e não haver alguma tentativa de devolução você NÃO poderá alugar livros por 9 meses!!\n");
-                    // implementar o texto de aviso
-    
+                    let idade = parseInt(verificarIdade(nomeUsuario))
+                    
+                    if (idade >= parseInt(classificacao)){
 
-                    let proximaAcao = prompt("\nDeseja sair da aplicação, selecionar outro livro ou voltar para o menu principal? (1: para outro / 2: para menu principal / 3: para sair): ");
+                        adicionarLivroUsuario(nomeUsuario, linhas[escolha - 1]);
+                        removerLivroDisponivel(linhas[escolha - 1], nomeArquivo);
+                        console.log("\n ★  Parabens, ótima escolha, livro adicionado à sua lista pessoal com sucesso!! ★ \n")
+                        console.log("--------------------------------------------------------------------------------------------------------") 
+                        console.log("|ATENÇÃO : Tempo de devolução: 1 semana")  
+                        console.log("\n|          Taxa de atraso: R$ 7,00")
+                        console.log("\n|          Quantidades de Renovação: 3 vezes")
+                        console.log("\n|          Taxa adicional caso não devolva o livro: R$ 2,00/dia")
+                        console.log("\n|          Penalidade por não devolver depois de 1 mês de atraso: NÃO poderá alugar livros por 9 meses")
+                        console.log("--------------------------------------------------------------------------------------------------------") 
+
+                    } else if (idade < parseInt(classificacao)){
+                        console.log("\n ⌦ Você não tem idade suficiente para alugar este livro. ⌫ ")
+                    }
+
+                    let proximaAcao = prompt("\n ▶ Deseja sair da aplicação, selecionar outro livro ou voltar para o menu principal? (1: para outro / 2: para menu principal / 3: para sair): ");
                     proximaAcao = parseInt(proximaAcao);
 
                     if (proximaAcao === 1) {
@@ -247,30 +281,31 @@ function mostrarLivrosDisponiveis(nomeUsuario) {
                         menuprincipal(nomeUsuario);
                         return;
                     } else if (proximaAcao === 3) {
-                        console.log("\nObrigado por usar a aplicação! Até a próxima.\n");
+                        
+                        console.log("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ Obrigado por usar a BIBLIOTEX! Até a próxima. ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n");
                         process.exit(0);
                     } else {
-                        console.log("\nOpção inválida, retornando ao menu principal.\n");
+                        console.log("\n ⌦ Opção inválida, retornando ao menu principal. ⌫ \n");
                         menuprincipal(nomeUsuario);
                     }
                 } else if (confirmacao === 2) {
-                    console.log("\nOperação cancelada.\n");
+                    console.log("\n ⌦ Operação cancelada. ⌫ \n");
                     menuprincipal(nomeUsuario);
                 } else {
-                    console.log("\nOpção inválida, retornando ao menu principal.\n");
+                    console.log("\n ⌦ Opção inválida, retornando ao menu principal. ⌫ \n");
                     menuprincipal(nomeUsuario);
                 }
 
             } else if (escolha !== 0) {
-                console.log("\nOpção inválida.\n");
+                console.log("\n ⌦ Opção inválida. ⌫ \n");
                 menuprincipal(nomeUsuario);
             }
         } else {
-            console.log("\nNenhum livro disponível no momento.\n");
+            console.log("\n ⌦ Nenhum livro disponível no momento, aguarde para novidades... ⌫ \n");
             menuprincipal(nomeUsuario);
         }
     } catch (err) {
-        console.error('\nErro ao ler o arquivo:', err);
+        console.error('\n ⌦ Erro ao ler o arquivo:', err);
         menuprincipal(nomeUsuario);
     }
 }
@@ -344,6 +379,7 @@ function mostrarMeusLivros(nomeUsuario) {
 }
 
 function removerLivros() {
+    console.clear(0);
     const texto =`\n
     
     ░█▀▀█ ▒█▀▀▄ ▒█▀▄▀█ ▀█▀ ▒█▄░▒█ 　 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 
@@ -405,6 +441,7 @@ function removerLivros() {
 }
 
 function addLivrosAdm() {
+    console.clear(0);
     const texto =`\n
     
     ░█▀▀█ ▒█▀▀▄ ▒█▀▄▀█ ▀█▀ ▒█▄░▒█ 　 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 
@@ -456,7 +493,7 @@ function addLivrosAdm() {
 
 function mostrarLivrosAlugados(nomeUsuario){
     console.clear(0);
-    texto =`\n
+    const texto =`\n
 
 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 　 　 　 　 　 █░░ ░▀░ ▀█░█▀ █▀▀█ █▀▀█ █▀▀ 
 ▒█▀▀▄ ▒█▀▀▄ ░▒█░░ 　 　 　 　 　 █░░ ▀█▀ ░█▄█░ █▄▄▀ █░░█ ▀▀█ 
@@ -466,7 +503,7 @@ function mostrarLivrosAlugados(nomeUsuario){
 　 　 　 　 　 　 　 　 　 　 █▄▄█ █░░ █░░█ █░▀█ █▄▄█ █░░█ █░░█ ▀▀█ 
 　 　 　 　 　 　 　 　 　 　 ▀░░▀ ▀▀▀ ░▀▀▀ ▀▀▀▀ ▀░░▀ ▀▀▀░ ▀▀▀▀ ▀▀▀ 
     \n
-    `         
+    `;         
     console.log(texto);
     let contador = 0;
     console.log(`Os livros que já estão alugados são:\n`);
@@ -476,7 +513,7 @@ function mostrarLivrosAlugados(nomeUsuario){
         try {    
             let user = nomes[i];
             let nomeArquivo = `meuslivros_${user}.txt`;
-            if (fs.existsSync(nomeArquivo)){
+            if (fs.existsSync(nomeArquivo) && user != nomeUsuario){
                 if (fs.readFileSync(`meuslivros_${user}.txt`, "utf-8").split("\n").filter(Boolean) != ""){
                     contador += 1;
                     const dataUsuarios = fs.readFileSync(nomeArquivo, 'utf8');
@@ -488,7 +525,7 @@ function mostrarLivrosAlugados(nomeUsuario){
         }
     }
     if (contador === 0){
-        console.log("\nNão existem livros alugados no momento.\n");
+        console.log("\nNão existem livros alugados por outros usuários no momento.\n");
     }
 
     let proximaAcao = prompt("\nDeseja voltar para o menu principal ou sair? ( 1: para menu principal / 2: para sair): ");
@@ -506,25 +543,24 @@ function mostrarLivrosAlugados(nomeUsuario){
 }
 
 function devolverLivros(nomeUsuario) {
-    
+    console.clear();
 
-    texto =`\n
-
+    const texto = `
 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 　 　 　 █▀▀▄ █▀▀ ▀█░█▀ █▀▀█ █░░ ▀█░█▀ █▀▀ █▀▀█ 
 ▒█▀▀▄ ▒█▀▀▄ ░▒█░░ 　 　 　 █░░█ █▀▀ ░█▄█░ █░░█ █░░ ░█▄█░ █▀▀ █▄▄▀ 
 ▒█▄▄█ ▒█▄▄█ ▄▀▒▀▄ 　 　 　 ▀▀▀░ ▀▀▀ ░░▀░░ ▀▀▀▀ ▀▀▀ ░░▀░░ ▀▀▀ ▀░▀▀ 
 
-　 　 　 　 　 　 　 　 　 　 　 　 █░░ ░▀░ ▀█░█▀ █▀▀█ █▀▀█ █▀▀ 
-　 　 　 　 　 　 　 　 　 　 　 　 █░░ ▀█▀ ░█▄█░ █▄▄▀ █░░█ ▀▀█ 
-　 　 　 　 　 　 　 　 　 　 　 　 ▀▀▀ ▀▀▀ ░░▀░░ ▀░▀▀ ▀▀▀▀ ▀▀▀ 
-
-    \n
-    `         
+█░░ ░▀░ ▀█░█▀ █▀▀█ █▀▀█ █▀▀ 
+█░░ ▀█▀ ░█▄█░ █▄▄▀ █░░█ ▀▀█ 
+▀▀▀ ▀▀▀ ░░▀░░ ▀░▀▀ ▀▀▀▀ ▀▀▀ 
+    `;
     console.log(texto);
+
     const nomeArquivo = `meuslivros_${nomeUsuario}.txt`;
+
     try {
         const data = fs.readFileSync(nomeArquivo, 'utf8');
-        const linhas = data.split('\n');
+        const linhas = data.split('\n').filter(linha => linha.trim() !== ''); // Filtra linhas vazias
         
         if (linhas.length > 0) {
             console.log(`\nLivros de ${nomeUsuario}:\n`);
@@ -546,10 +582,23 @@ function devolverLivros(nomeUsuario) {
             console.log(`\nNenhum livro encontrado para ${nomeUsuario}.\n`);
         }
     } catch (err) {
-        console.error(`\nErro ao ler os livros de ${nomeUsuario}:`, err);
+        console.error(`Você não tem livros alugados para devolver.`);
     }
-    menuprincipal(nomeUsuario);
-//função de chamar 3 caminhos, mylenna e Bia
+
+    let proximaAcao = prompt("\nDeseja voltar para o menu principal, devolver mais livros ou sair? (1: para menu principal / 2: para devolver mais livros / 3: para sair): ");
+    proximaAcao = parseInt(proximaAcao);
+
+    if (proximaAcao === 1) {
+        menuprincipal(nomeUsuario);
+    } else if (proximaAcao === 2) {
+        devolverLivros(nomeUsuario);
+    } else if (proximaAcao === 3) {
+        console.log("\nObrigado por usar a aplicação! Até a próxima.\n");
+        process.exit(0);
+    } else {
+        console.log("\nOpção inválida, retornando ao menu principal.\n");
+        menuprincipal(nomeUsuario);
+    }
 
 }
 
@@ -588,7 +637,7 @@ function verificarEscolha(tentativas){
         if (voltar === '1'){
             menuinicial()
         } else if (voltar === '2') {
-            logar(tentativas)
+            logar(0)
         } else {
             console.log("Escolha uma opção válida")
             verificarEscolha(tentativas)
@@ -599,14 +648,14 @@ function verificarEscolha(tentativas){
 }
 
 function dadosCliente() {
-    const texto =`\n
-    
-    ░█▀▀█ ▒█▀▀▄ ▒█▀▄▀█ ▀█▀ ▒█▄░▒█ 　 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 
-    ▒█▄▄█ ▒█░▒█ ▒█▒█▒█ ▒█░ ▒█▒█▒█ 　 ▒█▀▀▄ ▒█▀▀▄ ░▒█░░ 
-    ▒█░▒█ ▒█▄▄▀ ▒█░░▒█ ▄█▄ ▒█░░▀█ 　 ▒█▄▄█ ▒█▄▄█ ▄▀▒▀▄ 
+    console.clear(0);
 
-    \n
-    `
+    const texto = `
+░█▀▀█ ▒█▀▀▄ ▒█▀▄▀█ ▀█▀ ▒█▄░▒█ 　 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 
+▒█▄▄█ ▒█░▒█ ▒█▒█▒█ ▒█░ ▒█▒█▒█ 　 ▒█▀▀▄ ▒█▀▀▄ ░▒█░░ 
+▒█░▒█ ▒█▄▄▀ ▒█░░▒█ ▄█▄ ▒█░░▀█ 　 ▒█▄▄█ ▒█▄▄█ ▄▀▒▀▄ 
+
+    `;
     console.log(texto);
     
     const senhasPath = './senhas.txt';
@@ -623,11 +672,68 @@ function dadosCliente() {
         console.error('\nErro ao ler os arquivos:', err);
     }
 
-    menuadmin()
+    let proximaAcao = prompt("\nDeseja voltar para o menu admin ou sair? (1: para menu admin / 2: para sair): ");
+    proximaAcao = parseInt(proximaAcao);
+
+    if (proximaAcao === 1) {
+        menuadmin();
+    } else if (proximaAcao === 2) {
+        console.log("\nObrigado por usar a aplicação! Até a próxima.\n");
+        process.exit(0);
+    } else {
+        console.log("\nOpção inválida, retornando ao menu admin.\n");
+        menuadmin();
+    }
+}
+
+function livrosAdm() {
+    console.clear(0);
+
+    const texto = `
+░█▀▀█ ▒█▀▀▄ ▒█▀▄▀█ ▀█▀ ▒█▄░▒█ 　 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 
+▒█▄▄█ ▒█░▒█ ▒█▒█▒█ ▒█░ ▒█▒█▒█ 　 ▒█▀▀▄ ▒█▀▀▄ ░▒█░░ 
+▒█░▒█ ▒█▄▄▀ ▒█░░▒█ ▄█▄ ▒█░░▀█ 　 ▒█▄▄█ ▒█▄▄█ ▄▀▒▀▄ 
+
+    `;
+    console.log(texto);
+
+    const livrosPath = './livrosdisponiveis.txt';
+
+    try {
+        const livrosAdm = fs.readFileSync(livrosPath, 'utf8');
+        
+        console.log("\nSegue abaixo a lista de todos os livros: \n");
+        console.log(`-->: \n${livrosAdm}\n`);
+    } catch (err) {
+        console.error('\nErro ao ler os arquivos:', err);
+    }
+
+    let proximaAcao = prompt("\nDeseja voltar para o menu admin ou sair? (1: para menu admin / 2: para sair): ");
+    proximaAcao = parseInt(proximaAcao);
+
+    if (proximaAcao === 1) {
+        menuadmin();
+    } else if (proximaAcao === 2) {
+        console.log("\nObrigado por usar a aplicação! Até a próxima.\n");
+        process.exit(0);
+    } else {
+        console.log("\nOpção inválida, retornando ao menu admin.\n");
+        menuadmin();
+    }
+}
+
+function verificarIdade(nomeUsuario){
+    const nomes = fs.readFileSync("usuarios.txt", "utf-8").split("\n").filter(Boolean);
+    const idades = fs.readFileSync("idades.txt", "utf-8").split("\n").filter(Boolean);               
+
+    for (let i = 0; i < usuarios.length; i++){
+        let user = nomes[i]
+        if (user == nomeUsuario){
+            const idade = idades[i]
+            return idade
+        }
+    }
 }
 
 carregarUsuarios();
 menuinicial();
-
-//
-// COLOCAR O CONSOLE.CLEAR() EM TODAS AS FUNÇÕES

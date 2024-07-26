@@ -88,7 +88,8 @@ function logar(tentativas) {
     }
 }
 
-function menuinicial() {
+function menuinicial() {   
+    console.clear(0);
     const texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
     ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
     ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
@@ -120,6 +121,7 @@ function menuinicial() {
 }
 
 function menuadmin() {
+    console.clear(0);
     const texto =`\n
     
     ░█▀▀█ ▒█▀▀▄ ▒█▀▄▀█ ▀█▀ ▒█▄░▒█ 　 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 
@@ -523,26 +525,24 @@ function mostrarLivrosAlugados(nomeUsuario){
 }
 
 function devolverLivros(nomeUsuario) {
-    console.clear(0);
-    
+    console.clear();
 
-   const texto =`\n
-
+    const texto = `
 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 　 　 　 █▀▀▄ █▀▀ ▀█░█▀ █▀▀█ █░░ ▀█░█▀ █▀▀ █▀▀█ 
 ▒█▀▀▄ ▒█▀▀▄ ░▒█░░ 　 　 　 █░░█ █▀▀ ░█▄█░ █░░█ █░░ ░█▄█░ █▀▀ █▄▄▀ 
 ▒█▄▄█ ▒█▄▄█ ▄▀▒▀▄ 　 　 　 ▀▀▀░ ▀▀▀ ░░▀░░ ▀▀▀▀ ▀▀▀ ░░▀░░ ▀▀▀ ▀░▀▀ 
 
-　 　 　 　 　 　 　 　 　 　 　 　 █░░ ░▀░ ▀█░█▀ █▀▀█ █▀▀█ █▀▀ 
-　 　 　 　 　 　 　 　 　 　 　 　 █░░ ▀█▀ ░█▄█░ █▄▄▀ █░░█ ▀▀█ 
-　 　 　 　 　 　 　 　 　 　 　 　 ▀▀▀ ▀▀▀ ░░▀░░ ▀░▀▀ ▀▀▀▀ ▀▀▀ 
-
-    \n
-    `;        
+█░░ ░▀░ ▀█░█▀ █▀▀█ █▀▀█ █▀▀ 
+█░░ ▀█▀ ░█▄█░ █▄▄▀ █░░█ ▀▀█ 
+▀▀▀ ▀▀▀ ░░▀░░ ▀░▀▀ ▀▀▀▀ ▀▀▀ 
+    `;
     console.log(texto);
+
     const nomeArquivo = `meuslivros_${nomeUsuario}.txt`;
+
     try {
         const data = fs.readFileSync(nomeArquivo, 'utf8');
-        const linhas = data.split('\n');
+        const linhas = data.split('\n').filter(linha => linha.trim() !== ''); // Filtra linhas vazias
         
         if (linhas.length > 0) {
             console.log(`\nLivros de ${nomeUsuario}:\n`);
@@ -566,8 +566,21 @@ function devolverLivros(nomeUsuario) {
     } catch (err) {
         console.error(`Você não tem livros alugados para devolver.`);
     }
-    menuprincipal(nomeUsuario);
-//função de chamar 3 caminhos, mylenna e Bia
+
+    let proximaAcao = prompt("\nDeseja voltar para o menu principal, devolver mais livros ou sair? (1: para menu principal / 2: para devolver mais livros / 3: para sair): ");
+    proximaAcao = parseInt(proximaAcao);
+
+    if (proximaAcao === 1) {
+        menuprincipal(nomeUsuario);
+    } else if (proximaAcao === 2) {
+        devolverLivros(nomeUsuario);
+    } else if (proximaAcao === 3) {
+        console.log("\nObrigado por usar a aplicação! Até a próxima.\n");
+        process.exit(0);
+    } else {
+        console.log("\nOpção inválida, retornando ao menu principal.\n");
+        menuprincipal(nomeUsuario);
+    }
 
 }
 
@@ -617,15 +630,14 @@ function verificarEscolha(tentativas){
 }
 
 function dadosCliente() {
-    console.clear(0);
-    const texto =`\n
-    
-    ░█▀▀█ ▒█▀▀▄ ▒█▀▄▀█ ▀█▀ ▒█▄░▒█ 　 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 
-    ▒█▄▄█ ▒█░▒█ ▒█▒█▒█ ▒█░ ▒█▒█▒█ 　 ▒█▀▀▄ ▒█▀▀▄ ░▒█░░ 
-    ▒█░▒█ ▒█▄▄▀ ▒█░░▒█ ▄█▄ ▒█░░▀█ 　 ▒█▄▄█ ▒█▄▄█ ▄▀▒▀▄ 
+    console.clear();
 
-    \n
-    `
+    const texto = `
+░█▀▀█ ▒█▀▀▄ ▒█▀▄▀█ ▀█▀ ▒█▄░▒█ 　 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 
+▒█▄▄█ ▒█░▒█ ▒█▒█▒█ ▒█░ ▒█▒█▒█ 　 ▒█▀▀▄ ▒█▀▀▄ ░▒█░░ 
+▒█░▒█ ▒█▄▄▀ ▒█░░▒█ ▄█▄ ▒█░░▀█ 　 ▒█▄▄█ ▒█▄▄█ ▄▀▒▀▄ 
+
+    `;
     console.log(texto);
     
     const senhasPath = './senhas.txt';
@@ -642,35 +654,56 @@ function dadosCliente() {
         console.error('\nErro ao ler os arquivos:', err);
     }
 
-    menuadmin()
+    let proximaAcao = prompt("\nDeseja voltar para o menu admin ou sair? (1: para menu admin / 2: para sair): ");
+    proximaAcao = parseInt(proximaAcao);
+
+    if (proximaAcao === 1) {
+        menuadmin();
+    } else if (proximaAcao === 2) {
+        console.log("\nObrigado por usar a aplicação! Até a próxima.\n");
+        process.exit(0);
+    } else {
+        console.log("\nOpção inválida, retornando ao menu admin.\n");
+        menuadmin();
+    }
 }
 
-function livrosAdm(){
-    console.clear(0);
-    const texto =`\n
-    
-    ░█▀▀█ ▒█▀▀▄ ▒█▀▄▀█ ▀█▀ ▒█▄░▒█ 　 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 
-    ▒█▄▄█ ▒█░▒█ ▒█▒█▒█ ▒█░ ▒█▒█▒█ 　 ▒█▀▀▄ ▒█▀▀▄ ░▒█░░ 
-    ▒█░▒█ ▒█▄▄▀ ▒█░░▒█ ▄█▄ ▒█░░▀█ 　 ▒█▄▄█ ▒█▄▄█ ▄▀▒▀▄ 
+function livrosAdm() {
+    console.clear();
 
-    \n
-    `
+    const texto = `
+░█▀▀█ ▒█▀▀▄ ▒█▀▄▀█ ▀█▀ ▒█▄░▒█ 　 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 
+▒█▄▄█ ▒█░▒█ ▒█▒█▒█ ▒█░ ▒█▒█▒█ 　 ▒█▀▀▄ ▒█▀▀▄ ░▒█░░ 
+▒█░▒█ ▒█▄▄▀ ▒█░░▒█ ▄█▄ ▒█░░▀█ 　 ▒█▄▄█ ▒█▄▄█ ▄▀▒▀▄ 
+
+    `;
     console.log(texto);
 
-    const livrosPath = './livrosdisponiveis.txt'
+    const livrosPath = './livrosdisponiveis.txt';
 
     try {
         const livrosAdm = fs.readFileSync(livrosPath, 'utf8');
         
-        console.log("\nSegue abaixo os a lista de todos os livros: \n");
+        console.log("\nSegue abaixo a lista de todos os livros: \n");
         console.log(`-->: \n${livrosAdm}\n`);
     } catch (err) {
         console.error('\nErro ao ler os arquivos:', err);
     }
 
-    menuadmin()
+    let proximaAcao = prompt("\nDeseja voltar para o menu admin ou sair? (1: para menu admin / 2: para sair): ");
+    proximaAcao = parseInt(proximaAcao);
 
+    if (proximaAcao === 1) {
+        menuadmin();
+    } else if (proximaAcao === 2) {
+        console.log("\nObrigado por usar a aplicação! Até a próxima.\n");
+        process.exit(0);
+    } else {
+        console.log("\nOpção inválida, retornando ao menu admin.\n");
+        menuadmin();
+    }
 }
+
 
 carregarUsuarios();
 menuinicial();

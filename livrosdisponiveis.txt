@@ -1,3 +1,30 @@
-"Jogos Vorazes","Suzanne Collins",14
-"A Hora da Estrela","Clarice Lispector",14 
 "Memórias Póstumas de Brás Cubas","Machado de Assis",18
+"A Hora da Estrela","Clarice Lispector",14
+"Dom Casmurro","Machado de Assis",16
+"Grande Sertão: Veredas","João Guimarães Rosa",18
+"O Alienista","Machado de Assis",14
+"Capitães da Areia","Jorge Amado",16
+"O Cortiço","Aluísio Azevedo",16
+"Macunaíma","Mário de Andrade",18
+"Vidas Secas","Graciliano Ramos",16
+"O Primo Basílio","Eça de Queirós",18
+"A Moreninha","Joaquim Manuel de Macedo",14
+"O Guarani","José de Alencar",14
+"Senhora","José de Alencar",16
+"Iracema","José de Alencar",14
+"Triste Fim de Policarpo Quaresma","Lima Barreto",16
+"O Tempo e o Vento","Érico Veríssimo",18
+"Fogo Morto","José Lins do Rego",18
+"A Bagaceira","José Américo de Almeida",16
+"Sagarana","João Guimarães Rosa",16
+"Os Sertões","Euclides da Cunha",18
+"A Rosa do Povo","Carlos Drummond de Andrade",14
+"Morte e Vida Severina","João Cabral de Melo Neto",14
+"O Encontro Marcado","Fernando Sabino",16
+"A Hora e a Vez de Augusto Matraga","João Guimarães Rosa",16
+"A Paixão Segundo G.H.","Clarice Lispector",18
+"A Revolução dos Bichos","George Orwell",14
+"1984","George Orwell",16
+"O Senhor dos Anéis","J.R.R. Tolkien",14
+"Harry Potter e a Pedra Filosofal","J.K. Rowling",10
+"O Pequeno Príncipe","Antoine de Saint-Exupéry",10

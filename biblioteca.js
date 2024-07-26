@@ -648,7 +648,7 @@ function verificarEscolha(tentativas){
 }
 
 function dadosCliente() {
-    console.clear();
+    console.clear(0);
 
     const texto = `
 ░█▀▀█ ▒█▀▀▄ ▒█▀▄▀█ ▀█▀ ▒█▄░▒█ 　 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 
@@ -687,7 +687,7 @@ function dadosCliente() {
 }
 
 function livrosAdm() {
-    console.clear();
+    console.clear(0);
 
     const texto = `
 ░█▀▀█ ▒█▀▀▄ ▒█▀▄▀█ ▀█▀ ▒█▄░▒█ 　 ▒█▀▀█ ▒█▀▀█ ▀▄▒▄▀ 
@@ -737,6 +737,3 @@ function verificarIdade(nomeUsuario){
 
 carregarUsuarios();
 menuinicial();
-
-//
-// COLOCAR O CONSOLE.CLEAR() EM TODAS AS FUNÇÕES

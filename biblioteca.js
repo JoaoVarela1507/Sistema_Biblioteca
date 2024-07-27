@@ -205,7 +205,7 @@ function menuprincipal(nomeUsuario) {
             menuprincipal(nomeUsuario);
     }
 }
-
+//oi
 function mostrarLivrosDisponiveis(nomeUsuario) {
     console.clear(0);
 

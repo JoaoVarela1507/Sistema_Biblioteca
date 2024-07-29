@@ -29,19 +29,20 @@ function salvarUsuario(nomeUsuario, senha, idade) {
 }
 
 function registrar() {
-    console.log("-REGISTER-");
+    console.clear();
+    console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ REGISTRAR ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));
     let nomeUsuario = prompt("Digite um nome de usuário (até 8 caracteres): ");
     let senha = prompt("Digite uma senha (4 números): ");
     let idade = prompt("Digite sua idade: ");
     
     if (nomeUsuario.length > 8) {
-        console.log("Nome de usuário deve ter no máximo 8 caracteres. Tente novamente.");
+        console.log(chalk.redBright("  ⌦ Nome de usuário deve ter no máximo 8 caracteres. Tente novamente. ⌦"));
         registrar();
         return;
     }
 
     if (!senha.match(/^\d{4}$/)) {
-        console.log("Senha deve conter exatamente 4 números. Tente novamente.");
+        console.log(chalk.redBright("  ⌦ Senha deve conter exatamente 4 números. Tente novamente.  ⌦"));
         registrar();
         return;
     }
@@ -50,11 +51,11 @@ function registrar() {
     let senhaExiste = usuarios.some(usuario => usuario.senha === senha);
 
     if (usuarioExiste || senhaExiste) {
-        console.log("Nome de usuário ou senha já existem. Por favor, escolha outro.");
+        console.log(chalk.redBright("  ⌦ Nome de usuário ou senha já existem. Por favor, escolha outro.  ⌦"));
         registrar();
     } else {
         usuarios.push({ nomeUsuario, senha, idade});
-        console.log("Registro bem-sucedido!");
+        console.log(chalk.greenBright("  ✔ Registro bem-sucedido!"));
         salvarUsuario(nomeUsuario, senha, idade);
         logar(0);
     }
@@ -70,10 +71,10 @@ function logar(tentativas) {
     `;        
     
     console.log(texto);
-    console.log("-LOGIN-");
+    console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ LOGAR ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));
     
     if (tentativas >= 1){
-        console.log("\nNome de usuário ou senha inválidos. Por favor, tente novamente.\n");
+        console.log(chalk.redBright("\n  ⌦ Nome de usuário ou senha inválidos. Por favor, tente novamente. ⌦\n"));
     }
 
     let nomeUsuario = prompt("Digite seu nome de usuário: ");
@@ -82,10 +83,10 @@ function logar(tentativas) {
     let usuario = usuarios.find(usuario => usuario.nomeUsuario === nomeUsuario && usuario.senha === senha);
 
     if (usuario) {
-        console.log("Login bem-sucedido! Bem-vindo(a), " + nomeUsuario + "!");
+        console.log(chalk.greenBright("  ✔ Login bem-sucedido! Bem-vindo(a), " + nomeUsuario + "!"));
         menuprincipal(nomeUsuario);
     } else if (nomeUsuario === 'ADMIN' && senha === '1234') {
-        console.log("Bem-vindo ADMIN!!");
+        console.log(chalk.greenBright("  ✔ Bem-vindo ADMIN!!"));
         menuadmin();
     } else {
         verificarEscolha(tentativas);
@@ -101,9 +102,9 @@ function menuinicial() {
     `;    
     
     console.log(texto);
-    console.log("1. Registrar");
-    console.log("2. Logar");
-    console.log("3. Sair");
+    console.log(chalk.hex('#ffa500')("1. Registrar 👩‍💻"));
+    console.log(chalk.greenBright("2. Logar ✅"));
+    console.log(chalk.redBright("3. Sair ❌"));
 
     let escolha = prompt("Escolha uma opção: ");
 
@@ -115,10 +116,10 @@ function menuinicial() {
             logar(0);
             break;
         case "3":
-            console.log("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ Obrigado por usar a BIBLIOTEX! Até a próxima. ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n");
+            console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ Obrigado por usar a BIBLIOTEX! Até a próxima. ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));
             process.exit(0);
         default:
-            console.log("Opção inválida. Por favor, escolha 1, 2 ou 3.");
+            console.log(chalk.redBright("  ⌦ Opção inválida. Por favor, escolha 1, 2 ou 3. ⌦"));
     }
 
     menuinicial();
@@ -155,7 +156,7 @@ function menuadmin() {
         case "4":
             livrosAdm()
         case "5":
-            console.log("Até logo!");
+            console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ Obrigado por usar a BIBLIOTEX! Até a próxima. ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));
             process.exit(0);
         default:
             console.log("Opção inválida. Por favor, escolha 1, 2, 3 ou 4.");
@@ -172,12 +173,12 @@ function menuprincipal(nomeUsuario) {
     \n
     `         
     console.log(texto);
-    console.log("1. Meus Livros");
-    console.log("2. Livros Disponíveis");
-    console.log("3. Livros Alugados");
-    console.log("4. Devolver Livros");
-    console.log("5. Voltar para o menu de login");
-    console.log("6. Sair");  
+    console.log(chalk.hex('#ffa500')("1. Meus Livros 📖"));
+    console.log(chalk.hex('#ffa500')("2. Livros Disponíveis 📚"));
+    console.log(chalk.hex('#ffa500')("3. Livros Alugados 📒"));
+    console.log(chalk.hex('#ffa500')("4. Devolver Livros 🫴"));
+    console.log(chalk.hex('#ffa500')("5. Voltar para o menu de login 🔙"));
+    console.log(chalk.redBright("6. Sair ❌"));  
 
     let escolha = prompt("\nEscolha uma opção: ");
 
@@ -197,10 +198,10 @@ function menuprincipal(nomeUsuario) {
         case "5":
             menuinicial();
         case "6":
-            console.log("Até logo!");
+            console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ Obrigado por usar a BIBLIOTEX! Até a próxima. ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));
             process.exit(0);
         default:
-            console.log("Opção inválida. Por favor, escolha 1, 2, 3, 4, 5 ou 6.");
+            console.log(chalk.redBright("  ⌦ Opção inválida. Por favor, escolha 1, 2, 3, 4, 5 ou 6. ⌦"));
             menuprincipal(nomeUsuario);
     }
 }
@@ -228,14 +229,14 @@ function mostrarLivrosDisponiveis(nomeUsuario) {
         const linhas = data.split('\n');
 
         if (linhas.length > 0) {
-            console.log("\n ✔ Livros disponíveis: \n");
-            linhas.forEach((linha, index) => {
+            console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ Livros disponíveis: 📚 ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));            linhas.forEach((linha, index) => {
                 const partes = linha.split(',');
                 if (partes.length === 3) {
                     const titulo = partes[0].trim();
                     const autor = partes[1].trim();
                     const classificacao = partes[2].trim();
                     console.log(`${index + 1}. Título: ${titulo}, Autor: ${autor}, Classificação: ${classificacao}`);
+                    console.log(chalk.grey("--------------------------------------------------------------------------------------------------------"));
                 }
             });
 
@@ -247,9 +248,11 @@ function mostrarLivrosDisponiveis(nomeUsuario) {
                 const titulo = partes[0].trim();
                 const autor = partes[1].trim();
                 const classificacao = partes[2].trim();
-                
-                let confirmacao = prompt(`\n ✎  Você escolheu o livro: Título: ${titulo}, Autor: ${autor}, Classificação: ${classificacao}.\n\n ☑ Deseja confirmar a escolha? (1: sim / 2: não) : `);
+
+                console.log(chalk.grey("--------------------------------------------------------------------------------------------------------"));
+                let confirmacao = prompt(`\n ✎  Você escolheu o livro: Título: ${titulo}, Autor: ${autor}, Classificação: ${classificacao}.\n\n ▶ Deseja confirmar a escolha? (1: sim / 2: não) : `);
                 confirmacao = parseInt(confirmacao);
+                console.log(chalk.grey("--------------------------------------------------------------------------------------------------------"));
 
                 if (confirmacao === 1) {
                     let idade = parseInt(verificarIdade(nomeUsuario))
@@ -258,17 +261,17 @@ function mostrarLivrosDisponiveis(nomeUsuario) {
 
                         adicionarLivroUsuario(nomeUsuario, linhas[escolha - 1]);
                         removerLivroDisponivel(linhas[escolha - 1], nomeArquivo);
-                        console.log("\n ★  Parabens, ótima escolha, livro adicionado à sua lista pessoal com sucesso!! ★ \n")
+                        console.log(chalk.greenBright("\n ★  Parabens, ótima escolha, livro adicionado à sua lista pessoal com sucesso!! ★ \n"));
                         console.log("--------------------------------------------------------------------------------------------------------") 
-                        console.log("|ATENÇÃO : Tempo de devolução: 1 semana")  
-                        console.log("\n|          Taxa de atraso: R$ 7,00")
+                        console.log(chalk.redBright("|ATENÇÃO : Tempo de devolução: 1 semana")); 
+                        console.log("\n|          Taxa de atraso: R$ 7,00");
                         console.log("\n|          Quantidades de Renovação: 3 vezes")
                         console.log("\n|          Taxa adicional caso não devolva o livro: R$ 2,00/dia")
-                        console.log("\n|          Penalidade por não devolver depois de 1 mês de atraso: NÃO poderá alugar livros por 9 meses")
+                        console.log(chalk.redBright("\n|          Penalidade por não devolver depois de 1 mês de atraso: NÃO poderá alugar livros por 9 meses"));
                         console.log("--------------------------------------------------------------------------------------------------------") 
 
                     } else if (idade < parseInt(classificacao)){
-                        console.log("\n ⌦ Você não tem idade suficiente para alugar este livro. ⌫ ")
+                        console.log(chalk.redBright("\n  ⌦ Você não tem idade suficiente para alugar este livro. ⌫ "));
                     }
 
                     let proximaAcao = prompt("\n ▶ Deseja sair da aplicação, selecionar outro livro ou voltar para o menu principal? (1: para outro / 2: para menu principal / 3: para sair): ");
@@ -281,31 +284,31 @@ function mostrarLivrosDisponiveis(nomeUsuario) {
                         menuprincipal(nomeUsuario);
                         return;
                     } else if (proximaAcao === 3) {
-                        
-                        console.log("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ Obrigado por usar a BIBLIOTEX! Até a próxima. ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n");
+
+                        console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ Obrigado por usar a BIBLIOTEX! Até a próxima. ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));
                         process.exit(0);
                     } else {
-                        console.log("\n ⌦ Opção inválida, retornando ao menu principal. ⌫ \n");
+                        console.log(chalk.red("\n ⌦ Opção inválida, retornando ao menu principal. ⌫ \n"));
                         menuprincipal(nomeUsuario);
                     }
                 } else if (confirmacao === 2) {
-                    console.log("\n ⌦ Operação cancelada. ⌫ \n");
+                    console.log(chalk.red("\n ⌦ Operação cancelada. ⌫ \n"));
                     menuprincipal(nomeUsuario);
                 } else {
-                    console.log("\n ⌦ Opção inválida, retornando ao menu principal. ⌫ \n");
+                    console.log(chalk.red("\n ⌦ Opção inválida, retornando ao menu principal. ⌫ \n"));
                     menuprincipal(nomeUsuario);
                 }
 
             } else if (escolha !== 0) {
-                console.log("\n ⌦ Opção inválida. ⌫ \n");
+                console.log(chalk.red("\n ⌦ Opção inválida. ⌫ \n"));
                 menuprincipal(nomeUsuario);
             }
         } else {
-            console.log("\n ⌦ Nenhum livro disponível no momento, aguarde para novidades... ⌫ \n");
+            console.log(chalk.red("\n ⌦ Nenhum livro disponível no momento, aguarde para novidades... ⌫ \n"));
             menuprincipal(nomeUsuario);
         }
     } catch (err) {
-        console.error('\n ⌦ Erro ao ler o arquivo:', err);
+        console.error(chalk.red('\n ⌦ Erro ao ler o arquivo:', err));
         menuprincipal(nomeUsuario);
     }
 }
@@ -323,7 +326,7 @@ function removerLivroDisponivel(livro, nomeArquivo) {
         data = linhas.join('\n');
         fs.writeFileSync(nomeArquivo, data, 'utf8');
     } catch (err) {
-        console.error('Erro ao remover o livro da lista de disponíveis:', err);
+        console.error(chalk.redBright('  ⌦ Erro ao remover o livro da lista de disponíveis: ⌦ ', err ));
     }
 }
 
@@ -350,30 +353,29 @@ function mostrarMeusLivros(nomeUsuario) {
             const linhas = data.split('\n');
 
             if (linhas.length > 0) {
-                console.log(`\nLivros de ${nomeUsuario}:\n`);
-                linhas.forEach((linha, index) => {
-                    console.log(`${index + 1}. ${linha}`);
+                console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★  Meus livros 📖 ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));                linhas.forEach((linha, index) => {
+                console.log(`${index + 1}. ${linha}`);
                 });
-            } else {
-                console.log(`\nNenhum livro encontrado para ${nomeUsuario}.\n`);
+            } else {1
+                console.log(chalk.redBright(`\n  ⌦ Nenhum livro encontrado para ${nomeUsuario}. ⌦ \n`));
             }
         } catch (err) {
-            console.error(`\nErro ao ler os livros de ${nomeUsuario}:`, err);
+            console.error(chalk.redBright(`\n  ⌦ Erro ao ler os livros de ${nomeUsuario}: ⌦ `, err));
         }
     } else {
-        console.log("\nEsse usuário não tem uma lista de livros.\n");
+        console.log(chalk.redBright("\n  ⌦  Esse usuário não tem uma lista de livros. ⌦ \n"));
     }
 
-    let acao = prompt("\nDeseja sair da aplicação ou voltar para o menu principal? (1: para menu principal / 2: para sair): ");
+    let acao = prompt("\n  ▶  Deseja sair da aplicação ou voltar para o menu principal? (1: para menu principal / 2: para sair): ");
     acao = parseInt(acao);
 
     if (acao === 1) {
         menuprincipal(nomeUsuario);
     } else if (acao === 2) {
-        console.log("\nObrigado por usar a aplicação! Até a próxima.\n");
+        console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ Obrigado por usar a BIBLIOTEX! Até a próxima. ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));
         process.exit(0);
     } else {
-        console.log("\nOpção inválida, retornando ao menu principal.\n");
+        console.log(chalk.redBright("\n  ⌦ Opção inválida, retornando ao menu principal. ⌦\n"));
         menuprincipal(nomeUsuario);
     }
 }
@@ -396,7 +398,7 @@ function removerLivros() {
         const linhas = data.split('\n').filter(Boolean);
 
         if (linhas.length > 0) {
-            console.log("Livros disponíveis para remoção:");
+            console.log("Livros disponíveis para remoção: ");
             linhas.forEach((linha, index) => {
                 const partes = linha.split(',');
                 if (partes.length === 3) {
@@ -432,7 +434,7 @@ function removerLivros() {
     } else if (proximaAcao === 2) {
         menuadmin();
     } else if (proximaAcao === 3) {
-        console.log("Obrigado por usar a aplicação! Até a próxima.");
+        console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ Obrigado por usar a BIBLIOTEX! Até a próxima. ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));
         process.exit(0);
     } else {
         console.log("Opção inválida, retornando ao menu principal.");
@@ -483,7 +485,7 @@ function addLivrosAdm() {
     } else if (proximaAcao === 2) {
         menuadmin();
     } else if (proximaAcao === 3) {
-        console.log("Obrigado por usar a aplicação! Até a próxima.");
+        console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ Obrigado por usar a BIBLIOTEX! Até a próxima. ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));
         process.exit(0);
     } else {
         console.log("Opção inválida, retornando ao menu principal.");
@@ -506,7 +508,7 @@ function mostrarLivrosAlugados(nomeUsuario){
     `;         
     console.log(texto);
     let contador = 0;
-    console.log(`Os livros que já estão alugados são:\n`);
+    console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ Os livros que já estão alugados são: 📒 ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));
     const nomes = fs.readFileSync("usuarios.txt", "utf-8").split("\n").filter(Boolean);
 
     for (let i = 0; i < usuarios.length; i++) {
@@ -521,23 +523,23 @@ function mostrarLivrosAlugados(nomeUsuario){
                 }
             }
         } catch (err) {
-            console.error(`\nErro ao ler os livros alugados de ${user}:`, err);
+            console.error(chalk.redBright(`\n  ⌦  Erro ao ler os livros alugados de ${user}: ⌦ `, err));
         }
     }
     if (contador === 0){
-        console.log("\nNão existem livros alugados por outros usuários no momento.\n");
+        console.log(chalk.redBright("\n  ⌦ Não existem livros alugados por outros usuários no momento. ⌦ \n"));
     }
 
-    let proximaAcao = prompt("\nDeseja voltar para o menu principal ou sair? ( 1: para menu principal / 2: para sair): ");
+    let proximaAcao = prompt("\n  ▶  Deseja voltar para o menu principal ou sair? ( 1: para menu principal / 2: para sair): ");
     proximaAcao = parseInt(proximaAcao);
 
     if (proximaAcao === 1) {
         menuprincipal(nomeUsuario);
     } else if (proximaAcao === 2) {
-        console.log("\nObrigado por usar a aplicação! Até a próxima.\n");
+        console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ Obrigado por usar a BIBLIOTEX! Até a próxima. ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));
         process.exit(0);
     } else {
-        console.log("\nOpção inválida, retornando ao menu principal.\n");
+        console.log(chalk.redBright("\n  ⌦ Opção inválida, retornando ao menu principal. ⌦ \n"));
         menuprincipal(nomeUsuario);
     }
 }
@@ -563,29 +565,29 @@ function devolverLivros(nomeUsuario) {
         const linhas = data.split('\n').filter(linha => linha.trim() !== ''); // Filtra linhas vazias
         
         if (linhas.length > 0) {
-            console.log(`\nLivros de ${nomeUsuario}:\n`);
+            console.log(chalk.hex('#ffa500')(`\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ Livros de ${nomeUsuario}: ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n`));
             linhas.forEach((linha, index) => {
                 console.log(`${index + 1}. ${linha}`);
             });
             
-            let escolha = prompt("\nEscolha um número para devolver à biblioteca (ou '0' para voltar): ");
+            let escolha = prompt("\n ▶ Escolha um número para devolver à biblioteca (ou '0' para voltar): ");
             escolha = parseInt(escolha);
             
             if (escolha > 0 && escolha <= linhas.length) {
                 adicionarLivroDisponivel(linhas[escolha - 1]);
-                console.log("\nLivro devolvido com sucesso!!\n\n");
+                console.log(chalk.greenBright("\n ✔ Livro devolvido com sucesso!!\n\n"));
                 removerLivroUsuario(nomeArquivo, escolha - 1);
             } else if (escolha !== 0) {
-                console.log("\nOpção inválida.\n");
+                console.log(chalk.redBright("\n  ⌦ Opção inválida. ⌦\n"));
             }
         } else {
-            console.log(`\nNenhum livro encontrado para ${nomeUsuario}.\n`);
+            console.log(chalk.redBright(`\n  ⌦ Nenhum livro encontrado para ${nomeUsuario}. ⌦\n`));
         }
     } catch (err) {
-        console.error(`Você não tem livros alugados para devolver.`);
+        console.error(chalk.redBright(`  ⌦ Você não tem livros alugados para devolver. ⌦`));
     }
 
-    let proximaAcao = prompt("\nDeseja voltar para o menu principal, devolver mais livros ou sair? (1: para menu principal / 2: para devolver mais livros / 3: para sair): ");
+    let proximaAcao = prompt("\n ▶ Deseja voltar para o menu principal, devolver mais livros ou sair? (1: para menu principal / 2: para devolver mais livros / 3: para sair): ");
     proximaAcao = parseInt(proximaAcao);
 
     if (proximaAcao === 1) {
@@ -593,10 +595,10 @@ function devolverLivros(nomeUsuario) {
     } else if (proximaAcao === 2) {
         devolverLivros(nomeUsuario);
     } else if (proximaAcao === 3) {
-        console.log("\nObrigado por usar a aplicação! Até a próxima.\n");
+        console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ Obrigado por usar a BIBLIOTEX! Até a próxima. ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));
         process.exit(0);
     } else {
-        console.log("\nOpção inválida, retornando ao menu principal.\n");
+        console.log(chalk.redBright("\n  ⌦ Opção inválida, retornando ao menu principal. ⌦\n"));
         menuprincipal(nomeUsuario);
     }
 
@@ -614,7 +616,7 @@ function adicionarLivroDisponivel(livro) {
             fs.writeFileSync(nomeArquivo, livro + "\n");
         }
     } catch (err) {
-        console.error('Erro ao adicionar o livro aos disponíveis:', err);
+        console.error(chalk.redBright('  ⌦ Erro ao adicionar o livro aos disponíveis: ⌦', err));
     }
 }
 
@@ -626,7 +628,7 @@ function removerLivroUsuario(nomeArquivo, indice) {
         data = linhas.join('\n');
         fs.writeFileSync(nomeArquivo, data, 'utf8');
     } catch (err) {
-        console.error('Erro ao remover o livro da lista do usuário:', err);
+        console.error(chalk.redBright('  ⌦ Erro ao remover o livro da lista do usuário: ⌦ ', err));
     }
 }
 
@@ -678,7 +680,7 @@ function dadosCliente() {
     if (proximaAcao === 1) {
         menuadmin();
     } else if (proximaAcao === 2) {
-        console.log("\nObrigado por usar a aplicação! Até a próxima.\n");
+        console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ Obrigado por usar a BIBLIOTEX! Até a próxima. ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));
         process.exit(0);
     } else {
         console.log("\nOpção inválida, retornando ao menu admin.\n");
@@ -714,7 +716,7 @@ function livrosAdm() {
     if (proximaAcao === 1) {
         menuadmin();
     } else if (proximaAcao === 2) {
-        console.log("\nObrigado por usar a aplicação! Até a próxima.\n");
+        console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ Obrigado por usar a BIBLIOTEX! Até a próxima. ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));
         process.exit(0);
     } else {
         console.log("\nOpção inválida, retornando ao menu admin.\n");

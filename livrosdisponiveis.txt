@@ -20,7 +20,6 @@
 "Os Sertões","Euclides da Cunha",18
 "A Rosa do Povo","Carlos Drummond de Andrade",14
 "Morte e Vida Severina","João Cabral de Melo Neto",14
-"O Encontro Marcado","Fernando Sabino",16
 "A Hora e a Vez de Augusto Matraga","João Guimarães Rosa",16
 "A Paixão Segundo G.H.","Clarice Lispector",18
 "A Revolução dos Bichos","George Orwell",14

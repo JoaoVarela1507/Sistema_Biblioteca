@@ -30,10 +30,16 @@ function salvarUsuario(nomeUsuario, senha, idade) {
 
 function registrar() {
     console.clear();
-    console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ REGISTRAR ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));
-    let nomeUsuario = prompt("Digite um nome de usuário (até 8 caracteres): ");
-    let senha = prompt("Digite uma senha (4 números): ");
-    let idade = prompt("Digite sua idade: ");
+    const texto =`\n    ▒█▀▀█ ▀█▀ ▒█▀▀█ ▒█░░░ ▀█▀ ▒█▀▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▀▄▒▄▀ 
+    ▒█▀▀▄ ▒█░ ▒█▀▀▄ ▒█░░░ ▒█░ ▒█░░▒█ ░▒█░░ ▒█▀▀▀ ░▒█░░ 
+    ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
+    \n
+    `;  
+    console.log(chalk.hex('#5C4033')(texto));;      
+    console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ REGISTRAR ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));
+    let nomeUsuario = prompt(" ▶  Digite um nome de usuário (até 8 caracteres): ");
+    let senha = prompt(" ▶  Digite uma senha (4 números): ");
+    let idade = prompt(" ▶  Digite sua idade: ");
     
     if (nomeUsuario.length > 8) {
         console.log(chalk.redBright("  ⌦ Nome de usuário deve ter no máximo 8 caracteres. Tente novamente. ⌦"));
@@ -70,15 +76,15 @@ function logar(tentativas) {
     \n
     `;        
     
-    console.log(texto);
-    console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ LOGAR ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));
+    console.log(chalk.hex('#5C4033')(texto));;
+    console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ LOGIN ★▕\n ▔▔▔▔▔▔▔▔▔▔▔\n"));
     
     if (tentativas >= 1){
         console.log(chalk.redBright("\n  ⌦ Nome de usuário ou senha inválidos. Por favor, tente novamente. ⌦\n"));
     }
 
-    let nomeUsuario = prompt("Digite seu nome de usuário: ");
-    let senha = prompt("Digite sua senha: ");
+    let nomeUsuario = prompt(" ▶  Digite seu nome de usuário: ");
+    let senha = prompt(" ▶  Digite sua senha: ");
 
     let usuario = usuarios.find(usuario => usuario.nomeUsuario === nomeUsuario && usuario.senha === senha);
 
@@ -101,12 +107,12 @@ function menuinicial() {
     \n
     `;    
     
-    console.log(texto);
+    console.log(chalk.hex('#5C4033')(texto));
     console.log(chalk.hex('#ffa500')("1. Registrar 👩‍💻"));
     console.log(chalk.greenBright("2. Logar ✅"));
     console.log(chalk.redBright("3. Sair ❌"));
 
-    let escolha = prompt("Escolha uma opção: ");
+    let escolha = prompt(" ▶  Escolha uma opção: ");
 
     switch (escolha) {
         case "1":
@@ -135,14 +141,14 @@ function menuadmin() {
 
     \n
     `;    
-    console.log(texto);
+    console.log(chalk.hex('#5C4033')(texto));;
     console.log(chalk.hex('#ffa500')("1. Adicionar Livros📗"));
     console.log(chalk.hex('#ffa500')("2. Retirar Livros📘"));
     console.log(chalk.hex('#ffa500')("3. Dados dos Clientes🦰"));
     console.log(chalk.hex('#ffa500')("4. Listas de Livros📚"));
     console.log(chalk.redBright("5. Sair❌"));
 
-    let escolha = prompt("\nEscolha uma opção: \n");
+    let escolha = prompt("\n ▶  Escolha uma opção: \n");
 
     switch (escolha) {
         case "1":
@@ -172,7 +178,7 @@ function menuprincipal(nomeUsuario) {
     ▒█▄▄█ ▄█▄ ▒█▄▄█ ▒█▄▄█ ▄█▄ ▒█▄▄▄█ ░▒█░░ ▒█▄▄▄ ▄▀▒▀▄ 
     \n
     `         
-    console.log(texto);
+    console.log(chalk.hex('#5C4033')(texto));;
     console.log(chalk.hex('#ffa500')("1. Meus Livros 📖"));
     console.log(chalk.hex('#ffa500')("2. Livros Disponíveis 📚"));
     console.log(chalk.hex('#ffa500')("3. Livros Alugados 📒"));
@@ -180,7 +186,7 @@ function menuprincipal(nomeUsuario) {
     console.log(chalk.hex('#ffa500')("5. Voltar para o menu de login 🔙"));
     console.log(chalk.redBright("6. Sair ❌"));  
 
-    let escolha = prompt("\nEscolha uma opção: ");
+    let escolha = prompt("\n ▶  Escolha uma opção: ");
 
     switch (escolha) {
         case "1":
@@ -220,7 +226,7 @@ function mostrarLivrosDisponiveis(nomeUsuario) {
 　 　 　 　 　 　 　 　 　 ▀▀▀░ ▀▀▀ ▀▀▀ █▀▀▀ ▀▀▀▀ ▀░░▀ ▀▀▀ ░░▀░░ ▀▀▀ ▀▀▀ ▀▀▀ 
     \n
     `         
-    console.log(texto);
+    console.log(chalk.hex('#5C4033')(texto));;
     const nomeArquivo = './livrosdisponiveis.txt';
 
     try {
@@ -229,7 +235,7 @@ function mostrarLivrosDisponiveis(nomeUsuario) {
         const linhas = data.split('\n');
 
         if (linhas.length > 0) {
-            console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ Livros disponíveis: 📚 ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));            linhas.forEach((linha, index) => {
+            console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ Livros disponíveis: 📚 ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));            linhas.forEach((linha, index) => {
                 const partes = linha.split(',');
                 if (partes.length === 3) {
                     const titulo = partes[0].trim();
@@ -240,7 +246,7 @@ function mostrarLivrosDisponiveis(nomeUsuario) {
                 }
             });
 
-            let escolha = prompt("\n ▶ Escolha um livro para adicionar à sua lista (ou '0' para voltar): ");
+            let escolha = prompt("\n ▶  Escolha um livro para adicionar à sua lista (ou '0' para voltar): ");
             escolha = parseInt(escolha);
 
             if (escolha > 0 && escolha <= linhas.length) {
@@ -275,7 +281,7 @@ function mostrarLivrosDisponiveis(nomeUsuario) {
                         console.log(chalk.redBright("\n  ⌦ Você não tem idade suficiente para alugar este livro. ⌫ "));
                     }
 
-                    let proximaAcao = prompt("\n ▶ Deseja sair da aplicação, selecionar outro livro ou voltar para o menu principal? (1: para outro / 2: para menu principal / 3: para sair): ");
+                    let proximaAcao = prompt("\n ▶  Deseja sair da aplicação, selecionar outro livro ou voltar para o menu principal? (1: para outro / 2: para menu principal / 3: para sair): ");
                     proximaAcao = parseInt(proximaAcao);
 
                     if (proximaAcao === 1) {
@@ -344,7 +350,7 @@ function mostrarMeusLivros(nomeUsuario) {
 　 　 　 　 　 　 　 　 　 　▀▀▀ ▀▀▀ ░░▀░░ ▀░▀▀ ▀▀▀▀ ▀▀▀ 
     \n
     `         
-    console.log(texto);
+    console.log(chalk.hex('#5C4033')(texto));;
     const nomeArquivo = `meuslivros_${nomeUsuario}.txt`;
 
     if (fs.existsSync(nomeArquivo)) {
@@ -354,7 +360,7 @@ function mostrarMeusLivros(nomeUsuario) {
             const linhas = data.split('\n');
 
             if (linhas.length > 0) {
-                console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★  Meus livros 📖 ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));                linhas.forEach((linha, index) => {
+                console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★  Meus livros 📖 ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));                linhas.forEach((linha, index) => {
                 console.log(`${index + 1}. ${linha}`);
                 });
             } else {1
@@ -391,7 +397,7 @@ function removerLivros() {
 
     \n
     `         
-    console.log(texto);
+    console.log(chalk.hex('#5C4033')(texto));;
     const arquivoTxt = './livrosdisponiveis.txt';
 
     try {
@@ -410,7 +416,7 @@ function removerLivros() {
                 }
             });
 
-            let escolha = prompt(" \n Escolha um número para remover (ou '0' para voltar): \n ");
+            let escolha = prompt(" \n  ▶  Escolha um número para remover (ou '0' para voltar): \n ");
             escolha = parseInt(escolha);
 
             if (escolha > 0 && escolha <= linhas.length) {
@@ -427,7 +433,7 @@ function removerLivros() {
         console.error(chalk.redBright('Erro ao ler o arquivo:', err));
     }
 
-    let proximaAcao = prompt(" \n Deseja remover outro livro, voltar para o menu principal ou sair? (1 para remover outro / 2 para menu principal / 3 para sair): \n ");
+    let proximaAcao = prompt(" \n  ▶  Deseja remover outro livro, voltar para o menu principal ou sair? (1 para remover outro / 2 para menu principal / 3 para sair): \n ");
     proximaAcao = parseInt(proximaAcao);
 
     if (proximaAcao === 1) {
@@ -453,11 +459,11 @@ function addLivrosAdm() {
 
     \n
     `         
-    console.log(texto);
+    console.log(chalk.hex('#5C4033')(texto));;
     const nomeArquivo = './livrosdisponiveis.txt';
-    const nomeLivro = prompt(chalk.hex('#ffa500')('Digite o nome do livro que deseja adicionar: '));
-    const autorLivro = prompt(chalk.hex('#ffa500')('Digite o autor do livro: '));
-    const faixaEtaria = prompt(chalk.hex('#ffa500')('Digite a faixa etária recomendada (em anos): '));
+    const nomeLivro = prompt(chalk.hex('#ffa500')('  ▶  Digite o nome do livro que deseja adicionar: '));
+    const autorLivro = prompt(chalk.hex('#ffa500')('  ▶  Digite o autor do livro: '));
+    const faixaEtaria = prompt(chalk.hex('#ffa500')('  ▶  Digite a faixa etária recomendada (em anos): '));
 
     const livroFormatado = `"${nomeLivro}","${autorLivro}",${faixaEtaria}\n`;
 
@@ -478,7 +484,7 @@ function addLivrosAdm() {
         console.log(chalk.greenBright(` \n O livro "${nomeLivro}" do autor "${autorLivro}" foi adicionado com sucesso.\n`));
     }
 
-    let proximaAcao = prompt(" \n Deseja adicionar outro livro, voltar para o menu principal ou sair? (1 para adicionar outro / 2 para menu principal / 3 para sair): \n ");
+    let proximaAcao = prompt(" \n  ▶  Deseja adicionar outro livro, voltar para o menu principal ou sair? (1 para adicionar outro / 2 para menu principal / 3 para sair): \n ");
     proximaAcao = parseInt(proximaAcao);
 
     if (proximaAcao === 1) {
@@ -507,9 +513,9 @@ function mostrarLivrosAlugados(nomeUsuario){
 　 　 　 　 　 　 　 　 　 　 ▀░░▀ ▀▀▀ ░▀▀▀ ▀▀▀▀ ▀░░▀ ▀▀▀░ ▀▀▀▀ ▀▀▀ 
     \n
     `;         
-    console.log(texto);
+    console.log(chalk.hex('#5C4033')(texto));;
     let contador = 0;
-    console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ Os livros que já estão alugados são: 📒 ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));
+    console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★ Os livros que já estão alugados são: ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));
     const nomes = fs.readFileSync("usuarios.txt", "utf-8").split("\n").filter(Boolean);
 
     for (let i = 0; i < usuarios.length; i++) {
@@ -557,7 +563,7 @@ function devolverLivros(nomeUsuario) {
 █░░ ▀█▀ ░█▄█░ █▄▄▀ █░░█ ▀▀█ 
 ▀▀▀ ▀▀▀ ░░▀░░ ▀░▀▀ ▀▀▀▀ ▀▀▀ 
     `;
-    console.log(texto);
+    console.log(chalk.hex('#5C4033')(texto));;
 
     const nomeArquivo = `meuslivros_${nomeUsuario}.txt`;
 
@@ -659,7 +665,7 @@ function dadosCliente() {
 ▒█░▒█ ▒█▄▄▀ ▒█░░▒█ ▄█▄ ▒█░░▀█ 　 ▒█▄▄█ ▒█▄▄█ ▄▀▒▀▄ 
 
     `;
-    console.log(texto);
+    console.log(chalk.hex('#5C4033')(texto));;
     
     const senhasPath = './senhas.txt';
     const userPath = './usuarios.txt';
@@ -698,7 +704,7 @@ function livrosAdm() {
 ▒█░▒█ ▒█▄▄▀ ▒█░░▒█ ▄█▄ ▒█░░▀█ 　 ▒█▄▄█ ▒█▄▄█ ▄▀▒▀▄ 
 
     `;
-    console.log(texto);
+    console.log(chalk.yellowBright(texto));
 
     const livrosPath = './livrosdisponiveis.txt';
 

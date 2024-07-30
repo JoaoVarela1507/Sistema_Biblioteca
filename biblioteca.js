@@ -360,7 +360,7 @@ function mostrarMeusLivros(nomeUsuario) {
             const linhas = data.split('\n');
 
             if (linhas.length > 0) {
-                console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★  Meus livros 📖 ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));                linhas.forEach((linha, index) => {
+                console.log(chalk.hex('#ffa500')("\n\n ▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂▂\n▕ ★  Meus livros 📖 ★▕\n ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔\n"));                linhas.forEach((linha, index) => {
                 console.log(`${index + 1}. ${linha}`);
                 });
             } else {1

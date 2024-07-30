@@ -22,8 +22,9 @@
 "Morte e Vida Severina","João Cabral de Melo Neto",14
 "A Hora e a Vez de Augusto Matraga","João Guimarães Rosa",16
 "A Paixão Segundo G.H.","Clarice Lispector",18
-"A Revolução dos Bichos","George Orwell",14
 "1984","George Orwell",16
 "O Senhor dos Anéis","J.R.R. Tolkien",14
 "Harry Potter e a Pedra Filosofal","J.K. Rowling",10"peter pan","J. M. Barrie",12
 "A Bela e a Fera","Elizabeth Rudnik",12
+"A Revolução dos Bichos","George Orwell",14
+O Encontro Marcado","Fernando Sabino",16

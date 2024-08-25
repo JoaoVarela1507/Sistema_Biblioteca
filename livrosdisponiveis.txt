@@ -1,4 +1,0 @@
-"Memórias Póstumas de Brás Cubas","Machado de Assis",18
-"A Hora da Estrela","Clarice Lispector",14 
-"Jogos Vorazes","Suzanne Collins",14
-"Harry potter","J.K. Rowling",4

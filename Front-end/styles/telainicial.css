@@ -112,6 +112,9 @@ footer {
     background-color: white;
 }
 
+footer *{
+    background-color: #1E0102;
+}
 
 #footer_content {
     background-color: #1E0102;

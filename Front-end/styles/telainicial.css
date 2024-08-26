@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+    background-color: #5D1517; 
+    color: white;       
+ }
+ 
+.botoesNav {
+    text-decoration: none;
+    transition: all 0.3s ease;
+    color: white;
+    display: inline-block;
+ }
+ 
+.botoesNav:hover{
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    padding: 7px;
+    width: 150%;
+    text-align: center;
+    font-weight: bold;
+ }
+ 
+ header nav ul {
+     list-style: none;      
+     display: flex;
+     justify-content: flex-end;
+     margin-right: 190px;
+     gap: 80px;
+     margin-top: 30px;
+ }
+ 
+ main {
+ display: flex;
+ margin-left: 190px;
+ align-items: center;
+ height: 80vh;
+ }
+         
+ section {
+ text-align: left;
+ }
+         
+ img {
+ max-width: 500%;
+ height: auto;
+ }
+         
+  button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: white;
+  color: #5D1517;
+  font-weight:bold; 
+  width: 150px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+ }
+         
+ #frase{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 25px;       
+ }
+ 
+ #img2{
+     padding-top: 100px;      
+ }
+ 
+ .inputs{
+   margin-left: 10px;
+   width: 12px; 
+   height: 12px; 
+   appearance: none; 
+   background-color: rgba(255, 255, 255, 0.469); 
+   border-radius: 50%; 
+   cursor: pointer;
+   position: relative;
+   left: 30px; 
+ }
+ 
+ .inputs:hover{
+   background-color: white;
+ }
+ 
+ #btn{
+     margin-bottom: 20px;      
+ }
+
+* {
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+    padding: 0;
+    letter-spacing: 1px;
+}
+
+
+footer {
+    width: 100%;
+    color: white;
+    background-color: white;
+}
+
+
+#footer_content {
+    background-color: #5D1517;
+    display: grid;
+    grid-template-columns: repeat(3, 0.5fr) ;
+    padding-top: 50px;
+    padding-right: 5rem;
+    padding-bottom: 20px;
+    padding-left: 30px;
+}
+
+#footer_social {
+    margin-top: 5rem;
+}
+
+#footer_icons {
+    margin-top: 1.5rem;
+    margin-left: 1rem;
+    display: flex;
+    gap: 2rem;
+}
+
+#footer_icons .footer-link {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#footer_local{
+    text-align: right;
+}
+
+#footer_local h2{
+    margin-bottom: 10px;
+  }
+
+#footer_copyrights {
+    margin-top: 60%;
+    text-align: center;
+}
+
+#footer_copyrightIcons {
+    display: flex;
+    justify-content: center;
+    margin-top: 1px;
+    gap: 1rem;
+    background-color: #5D1517;
+}
+
+a {
+  text-decoration: none;  
+}
+
+#softex {
+    padding-right: 4rem;
+    height: 5rem;
+    margin-top: 1%;
+    margin-bottom: 1.5rem;
+}
+
+#pernambuco {
+    border-radius: 50%;
+    height: 5rem;
+    margin-top: 1%;
+    margin-bottom: 1.5rem;
+}
+
+#brasil{
+    border-radius: 50%;
+    height: 5rem;
+    margin-top: 1%;
+    margin-bottom: 1.5rem;
+}

@@ -10,29 +10,30 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 }
 
 .conteudo-principal {
-  width: 1000px;
-  height: 650px;
+  width: 1050px;
+  height: 730px;
   display: flex;
   background-color: #ffffff;
   border-radius: 16px;
   /* align-items: center; */
   /* justify-content: ; */
-  margin-top: 40px;
+  margin-top: 30px;
 }
 
 .conteudo-principal-esquerda {
-  width: 400px;
-  height: 650px;
+  width: 525px;
+  height: 730px;
   background-color: #f5dbc4;
-  max-height: 650px;
+  max-height: 730px;
   border-radius: 16px 0 0 16px;
 }
 
 .img-esquerda {
-  width: 400px;
+  width: 525px;
   height: 650px;
 }
 
@@ -69,7 +70,7 @@ p {
   font-family: "Poppins", sans-serif;
   font-weight: 600;
   font-style: normal;
-  font-size: 16px;
+  /* font-size: 16px; */
   color: #832b1a;
 }
 
@@ -80,12 +81,16 @@ p {
   border: solid, 1px, #832b1a;
   margin-bottom: 24px;
   outline: none;
-  padding-left: 16px;
+  padding-left: 10px;
   color: #832b1a;
 }
 
 .conteudo-principal-direita-form-input::placeholder {
   color: #832b1a;
+  font-size: 15px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 350;
+  font-style: normal;
 }
 
 .conteudo-principal-direita-ajuda {
@@ -171,6 +176,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 22px;
 }
 
 .conteudo-principal-direita-info .line {
@@ -193,6 +199,7 @@ p {
   display: flex;
   justify-content: center;
   gap: 20px;
+  margin-top: 26px;
 }
 
 .conteudo-principal-direita-links a {

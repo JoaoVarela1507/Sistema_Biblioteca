@@ -14,7 +14,7 @@
     color: white;
     display: inline-block;
  }
- 
+
 .botoesNav:hover{
     background-color: white;
     color: black;
@@ -24,7 +24,18 @@
     text-align: center;
     font-weight: bold;
  }
- 
+
+nav{
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo-header{
+    width: 200px;
+    margin-left: 80px;
+    margin-top: 30px;
+}
+
  header nav ul {
      list-style: none;      
      display: flex;
@@ -44,12 +55,7 @@
  section {
  text-align: left;
  }
-         
- img {
- max-width: 500%;
- height: auto;
- }
-         
+                 
   button {
   margin-top: 10px;
   padding: 10px 20px;
@@ -68,9 +74,9 @@
     font-size: 25px;       
  }
  
- #img2{
-     padding-top: 100px;      
- }
+.imagem-main{
+    margin-left: 400px;
+}
  
  .inputs{
    margin-left: 10px;

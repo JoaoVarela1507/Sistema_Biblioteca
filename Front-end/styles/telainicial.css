@@ -38,7 +38,7 @@
  display: flex;
  margin-left: 190px;
  align-items: center;
- height: 80vh;
+ height: 95vh;
  }
          
  section {
@@ -108,7 +108,7 @@ footer {
 
 
 #footer_content {
-    background-color: #5D1517;
+    background-color: #1E0102;
     display: grid;
     grid-template-columns: repeat(3, 0.5fr) ;
     padding-top: 50px;
@@ -155,11 +155,10 @@ footer {
     justify-content: center;
     margin-top: 1px;
     gap: 1rem;
-    background-color: #5D1517;
 }
 
 a {
-  text-decoration: none;  
+  text-decoration: none; 
 }
 
 #softex {

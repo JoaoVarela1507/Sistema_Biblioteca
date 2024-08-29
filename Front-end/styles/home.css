@@ -1,0 +1,118 @@
+* { 
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.user-img {
+    padding: 16px;
+    text-align: center;
+    
+}
+.sidebar {
+    position: fixed; /*Fixa a barra lateral em uma posição específica na tela, mesmo quando a página é rolada.*/
+    top: 0;  /*Define a altura da barra lateral como 100% da altura da janela de visualização.*/
+    height: 100vh;
+    width: 250px;
+    background-color: #5D1517;
+    transition: 0.6s ease;
+    border-top-right-radius: 80px;
+    border-bottom-right-radius: 80px;
+}
+
+.logo {
+    text-align: center;
+    padding:16px;
+
+}
+
+.user-name{
+    text-align: center;
+    color: #ffff;
+}
+
+.nav-items{
+    margin-top:  30px;
+}
+
+.nav-items a{
+    position: relative; /* Define a posição como relativa ao seu contêiner.*/ 
+    cursor: pointer;
+    color: #ffff;
+    font-size: 16px;
+    text-decoration: none; /* Remove a sublinha dos links..*/ 
+    padding: 5px 30px;
+    line-height: 60px; /*  Define a altura da linha, fazendo com que o conteúdo do link seja centralizado verticalmente..*/ 
+}
+
+.nav-items img{
+    margin-right: 16px;
+}
+
+.dark-mode{
+    display: none;
+}
+
+.display{
+    margin-top: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.label-dark-mode{
+    width: 160px;
+    height: 50px;
+    border-radius: 999px;
+    background-color: #f3f3f3;
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.05) inset; /*   Adiciona uma sombra interna leve.*/ 
+    cursor: pointer;
+}
+
+.circle{
+    width: 80px;
+    height: 45px;
+    border-radius: 99px;
+    background-color: white;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.05), -10px -10px 30px rgba(0, 0, 0, 0.05) inset; /*Adiciona sombras externas e internas para criar um efeito de profundidade.*/
+    position: absolute; /*Define a posição como absoluta em relação ao contêiner pai.*/
+    transform: translate(10%, 5%);  /*Move o círculo para a direita e para baixo.*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+svg{
+    position: absolute;
+}
+
+.sun{
+    width: 45px;
+    color: #FFD600;
+    margin-top: 0%;
+}
+
+.moon{
+    width: 35px;
+    /* margin-top: -150%; */
+}
+
+/* input[type=checkbox]:checked + .display {
+    background: black;
+} */
+
+.btn-logout{
+    width: 160px;
+    height: 50px;
+    border-radius: 999px;
+    border: none;
+    background-color: #f3f3f3;
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.05) inset;
+    cursor: pointer;
+    color: #5D1517;
+    margin: 30px 45px;
+    font-weight: bold;
+    font-size: 16px;
+    
+}

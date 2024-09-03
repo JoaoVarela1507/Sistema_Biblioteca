@@ -3,7 +3,8 @@
 * {
     padding: 0;
     margin: 0;
-    font-family: "Roboto", sans-serif;       
+    font-family: "Roboto", sans-serif;     
+    max-width: 100%;
 }
 
 header div {
@@ -38,4 +39,120 @@ header div {
     width: 300px;
     height: 40px;
     border-radius: 12px;
+}
+
+.main_screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 500px;
+    margin-top: 200px;
+}
+
+.main_info {
+    height: 500px;
+    width: 600px;
+    font-size: 40px;
+    color: #5D1517;
+}
+
+.saber_mais{
+    border: none;
+    background-color: #5D1517;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    height: 50px;
+    width: 230px;
+    margin-top: 30px;
+    border-radius: 25px;
+    display: block;
+}
+
+.checkbox_div {
+    height: 50px;
+    width: 230px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.checkbox {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid rgb(255, 255, 255);
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    background-color: #DD9587;
+    transition: background-color 0.3s;
+}
+
+.oQueFazemos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+}
+
+.oQueFazemos_texto{
+    color: rgb(255, 255, 255);
+    font-size: 100px;
+    margin-top: 300px;
+    height: auto;
+    width: auto;
+    z-index: 1;
+}
+
+.oQueFazemos_imagem{
+    position: absolute;
+    z-index: 0;
+}
+
+.oQueFazemos_info {
+    background-color: #5D1517;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 1000px;
+}
+
+.info {
+    text-align: center;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    gap: 200px;
+}
+
+
+.alugue{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 600px;
+    width: 600px;
+}
+
+.interface{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 600px;
+    width: 600px;
+}
+
+
+.imagem{
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
